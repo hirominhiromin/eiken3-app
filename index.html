@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>英検3級 合格アプリ V1.3</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;background:#f7f8fb;margin:0;color:#222}
+.wrap{max-width:720px;margin:auto;padding:20px}
+header{background:#fff;border-radius:20px;padding:20px;box-shadow:0 3px 14px #0001}
+h1{margin:0 0 6px;font-size:25px} .sub{color:#666}
+.card{background:#fff;border-radius:18px;padding:18px;margin:14px 0;box-shadow:0 2px 10px #00000010}
+button{border:0;border-radius:13px;padding:12px 15px;margin:5px;background:#eef1f7;font-size:15px;cursor:pointer}
+.primary{background:#222;color:#fff} .pink{background:#ffe4ef} .green{background:#e6f7ea}
+.big{font-size:20px;font-weight:700} .muted{color:#777;font-size:13px}
+.choice{display:block;width:100%;text-align:left;background:#f1f3f8;margin:8px 0}
+.correct{background:#dff5e5!important} .wrong{background:#ffe2e2!important}
+.progress{height:10px;background:#e8eaf0;border-radius:8px;overflow:hidden} .bar{height:100%;background:#222;width:0}
+textarea{width:100%;box-sizing:border-box;min-height:130px;border:1px solid #ddd;border-radius:12px;padding:12px;font-size:16px}
+.hidden{display:none} .tag{display:inline-block;padding:5px 9px;border-radius:20px;background:#eee;font-size:12px;margin-right:5px}
+</style></head><body><div class="wrap">
+<header><h1>英検3級 合格アプリ</h1><div class="sub">スキマ時間で、英検3級合格へ。</div><p><b>本番まであと <span id="days"></span> 日</b></p>
+<div class="progress"><div class="bar" id="bar"></div></div><p class="muted">今日1問でもやればOK。時間がある日は、そのまま続けよう！</p></header>
+
+<div id="home">
+<div class="card"><div class="big">今、何分ある？</div>
+<button onclick="start(1)">1分</button><button onclick="start(3)">3分</button><button onclick="start(5)" class="primary">5分</button><button onclick="start(10)">10分</button><button onclick="start(20)">20分</button></div>
+<div class="card"><div class="big">今日のおすすめ 🎯</div><p id="recommend">基礎 → 単語 → 読解をバランスよく。</p><button class="primary" onclick="start(5)">今日の5分を始める</button></div>
+<div class="card"><div class="big">分野別</div>
+<button onclick="startCat('単語')">📚 単語</button><button onclick="startCat('読解')">📖 読解</button><button onclick="writing()">✍️ ライティング</button><button onclick="listening()">🎧 リスニング</button><button onclick="interview()">🗣️ 面接</button><button onclick="lessonMenu()">🌱 超基礎</button></div>
+<div class="card"><div class="big">今日のひとこと</div><p>「doって何？」からでも大丈夫。分からないところから一緒に進もう。</p></div>
+</div>
+
+<div id="app" class="hidden"></div>
+</div>
+<script>
+const Q=[{"cat": "基礎", "q": "I ___ a student.", "choices": ["am", "is", "are"], "ans": 0, "fb": "I は am。", "title": "be動詞って何？"}, {"cat": "基礎", "q": "She ___ happy.", "choices": ["am", "is", "are"], "ans": 1, "fb": "She は is。", "title": "be動詞って何？"}, {"cat": "基礎", "q": "I ___ tennis.", "choices": ["play", "am", "is"], "ans": 0, "fb": "play は一般動詞。", "title": "一般動詞って何？"}, {"cat": "基礎", "q": "I ___ music.", "choices": ["like", "am", "are"], "ans": 0, "fb": "like は一般動詞。", "title": "一般動詞って何？"}, {"cat": "基礎", "q": "___ you like soccer?", "choices": ["Do", "Does", "Did"], "ans": 0, "fb": "you なので Do。", "title": "do / does / did"}, {"cat": "基礎", "q": "___ she play tennis?", "choices": ["Do", "Does", "Did"], "ans": 1, "fb": "she なので Does。", "title": "do / does / did"}, {"cat": "基礎", "q": "___ you go there yesterday?", "choices": ["Do", "Does", "Did"], "ans": 2, "fb": "yesterday なので Did。", "title": "do / does / did"}, {"cat": "基礎", "q": "He ___ soccer.", "choices": ["play", "plays", "playing"], "ans": 1, "fb": "He なので plays。", "title": "三単現"}, {"cat": "基礎", "q": "I ___ to school yesterday.", "choices": ["go", "goes", "went"], "ans": 2, "fb": "yesterday なので過去形 went。", "title": "過去形"}, {"cat": "単語", "q": "「borrow」の意味は？", "choices": ["借りる", "貸す", "買う"], "ans": 0, "fb": "borrow = 借りる"}, {"cat": "単語", "q": "「arrive」の意味は？", "choices": ["到着する", "出発する", "忘れる"], "ans": 0, "fb": "arrive = 到着する"}, {"cat": "単語", "q": "「usually」の意味は？", "choices": ["たいてい", "決して〜ない", "すぐに"], "ans": 0, "fb": "usually = たいてい"}, {"cat": "単語", "q": "「because」の意味は？", "choices": ["なぜなら", "しかし", "もし"], "ans": 0, "fb": "because = なぜなら"}, {"cat": "単語", "q": "「different」の意味は？", "choices": ["違った", "同じ", "簡単な"], "ans": 0, "fb": "different = 違った"}, {"cat": "単語", "q": "「practice」の意味は？", "choices": ["練習する", "質問する", "説明する"], "ans": 0, "fb": "practice = 練習する"}, {"cat": "読解", "passage": "Ken gets up at seven every morning. He eats breakfast and goes to school by bus. On Sundays, he gets up at eight.", "q": "What time does Ken get up on Sundays?", "choices": ["At seven.", "At eight.", "At nine."], "ans": 1, "fb": "本文の情報を探せば答えられます。"}, {"cat": "読解", "passage": "Lisa likes cooking. She usually makes dinner with her mother on Saturdays. Last Saturday, they made curry.", "q": "What did Lisa make last Saturday?", "choices": ["Curry.", "Cake.", "Soup."], "ans": 0, "fb": "本文の情報を探せば答えられます。"}];
+let pool=[], idx=0, score=0, mistakes=JSON.parse(localStorage.getItem("eiken_mistakes")||"[]");
+const exam=new Date("2026-10-04T00:00:00+09:00");
+document.getElementById("days").textContent=Math.max(0,Math.ceil((exam-new Date())/86400000));
+let studied=Number(localStorage.getItem("eiken_studied")||0);
+document.getElementById("bar").style.width=Math.min(100,studied*4)+"%";
+
+function show(id){document.getElementById("home").classList.toggle("hidden",id!=="home");document.getElementById("app").classList.toggle("hidden",id==="home");}
+function start(min){pool=[...Q]; pool.sort(()=>Math.random()-.5); let n=min<=1?1:min<=3?3:min<=5?5:min<=10?10:18; pool=pool.slice(0,n); idx=0;score=0;show("app");renderQ();}
+function startCat(cat){pool=Q.filter(x=>x.cat===cat);pool.sort(()=>Math.random()-.5);idx=0;score=0;show("app");renderQ();}
+function renderQ(){
+ if(idx>=pool.length) return finish();
+ const x=pool[idx]; let s=`<div class="card"><span class="tag">${x.cat}</span>${x.title?`<span class="tag">${x.title}</span>`:""}<p class="muted">${idx+1} / ${pool.length}</p>`;
+ if(x.passage)s+=`<div class="card" style="background:#fafafa">${x.passage}</div>`;
+ s+=`<div class="big">${x.q}</div><div id="choices">`;
+ x.choices.forEach((c,i)=>s+=`<button class="choice" onclick="answer(${i})">${c}</button>`);
+ s+=`</div><div id="feedback"></div><button onclick="home()">← 戻る</button></div>`;
+ document.getElementById("app").innerHTML=s;
+}
+function answer(i){
+ const x=pool[idx], btns=document.querySelectorAll(".choice"); btns.forEach(b=>b.disabled=true);
+ if(i===x.ans){score++;btns[i].classList.add("correct");document.getElementById("feedback").innerHTML=`<div class="card green"><b>⭕ 正解！</b><br>${x.fb}</div>`;}
+ else{btns[i].classList.add("wrong");btns[x.ans].classList.add("correct");mistakes.push(x.q);localStorage.setItem("eiken_mistakes",JSON.stringify(mistakes.slice(-30)));document.getElementById("feedback").innerHTML=`<div class="card pink"><b>💡 惜しい！</b><br>正解：${x.choices[x.ans]}<br>${x.fb}</div>`;}
+ studied++;localStorage.setItem("eiken_studied",studied);document.getElementById("bar").style.width=Math.min(100,studied*4)+"%";
+ document.getElementById("feedback").innerHTML+=`<button class="primary" onclick="idx++;renderQ()">次へ →</button>`;
+}
+function finish(){document.getElementById("app").innerHTML=`<div class="card"><div class="big">🎉 おつかれさま！</div><p>${pool.length}問中 <b>${score}問正解</b>。</p><p>今日はここで終わってもOK。まだいけそうなら、もう一回やろう！</p><button class="primary" onclick="start(5)">もう少しやる</button><button onclick="home()">ホームへ</button></div>`}
+function home(){show("home")}
+function lessonMenu(){show("app");document.getElementById("app").innerHTML=`<div class="card"><div class="big">🌱 超基礎ミニレッスン</div><p>分からないところから、1つずつ。</p>${lessons.map((x,i)=>`<button style="display:block;width:100%;text-align:left" onclick="lesson(${i})">${i+1}. ${x[0]}</button>`).join("")}<button onclick="home()">← ホームへ</button></div>`}
+const lessons=[["be動詞って何？", "be動詞は「〜です・〜にいます」を表す大事な動詞。I am / You are / He is のように、主語で形が変わります。", [["I ___ a student.", ["am", "is", "are"], 0, "I は am。"], ["She ___ happy.", ["am", "is", "are"], 1, "She は is。"]]], ["一般動詞って何？", "一般動詞は「食べる・行く・好き」など、動作や状態を表します。I play tennis. / I like music. のように使います。", [["I ___ tennis.", ["play", "am", "is"], 0, "play は一般動詞。"], ["I ___ music.", ["like", "am", "are"], 0, "like は一般動詞。"]]], ["do / does / did", "疑問文や否定文で大活躍。現在形では I/you/we/they → do、he/she/it → does、過去形 → did。", [["___ you like soccer?", ["Do", "Does", "Did"], 0, "you なので Do。"], ["___ she play tennis?", ["Do", "Does", "Did"], 1, "she なので Does。"], ["___ you go there yesterday?", ["Do", "Does", "Did"], 2, "yesterday なので Did。"]]], ["三単現", "he / she / it の現在形では、一般動詞に s がつくことがあります。He plays tennis. She likes music.", [["He ___ soccer.", ["play", "plays", "playing"], 1, "He なので plays。"]]], ["過去形", "「昨日〜した」など、過去のことを表す形。play → played、go → went のように変わります。", [["I ___ to school yesterday.", ["go", "goes", "went"], 2, "yesterday なので過去形 went。"]]]];
+function lesson(i){let x=lessons[i];let s=`<div class="card"><div class="big">🌱 ${x[0]}</div><p>${x[1]}</p><hr><p><b>まずは1問！</b></p>`;let q=x[2][0];s+=`<p>${q[0]}</p>${q[1].map((c,j)=>`<button class="choice" onclick="lessonAns(this,${j},${q[2]},'${q[3]}')">${c}</button>`).join("")}<div id="lf"></div><button onclick="lessonMenu()">← 基礎一覧</button></div>`;document.getElementById("app").innerHTML=s}
+function lessonAns(el,i,a,f){document.querySelectorAll(".choice").forEach(b=>b.disabled=true);document.getElementById("lf").innerHTML=i===a?`<div class="card green">⭕ 正解！ ${f}</div>`:`<div class="card pink">💡 正解を覚えよう。 ${f}</div>`}
+function writing(){show("app");document.getElementById("app").innerHTML=`<div class="card"><div class="big">✍️ ライティング練習</div><p><span class="tag">Eメール</span></p><p>${email_prompt}</p><textarea placeholder="英語で書いてみよう"></textarea><p><span class="tag">英作文</span></p><p>${essay_prompt}</p><textarea placeholder="英語で書いてみよう"></textarea><div class="card green">チェックのポイント：①質問に答えている ②理由・具体例がある ③短くても正しい文を書く。</div><button onclick="home()">← 戻る</button></div>`}
+function listening(){show("app");document.getElementById("app").innerHTML=`<div class="card"><div class="big">🎧 リスニング練習</div><p>音声を聞いて答えよう。ブラウザの音声機能を使った練習版です。</p><button class="primary" onclick="speak('What time does Ken get up on Sundays?')">🔊 音声を聞く</button><p>答えは？</p><button class="choice" onclick="this.classList.add('correct')">At eight.</button><button onclick="home()">← 戻る</button></div>`}
+function speak(t){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.82;speechSynthesis.speak(u)}
+function interview(){show("app");document.getElementById("app").innerHTML=`<div class="card"><div class="big">🗣️ 面接ミニ練習</div><p>本番を意識して、まず声に出して答えよう。</p><p><b>Question:</b> What do you like to do after school?</p><button class="primary" onclick="speak('What do you like to do after school?')">🔊 質問を聞く</button><textarea placeholder="答えを入力してから、声にも出してみよう"></textarea><div class="card green">ポイント：短くてもOK。「I like to play soccer.」のように、主語＋動詞で答えよう。</div><button onclick="home()">← 戻る</button></div>`}
+</script></body></html>
