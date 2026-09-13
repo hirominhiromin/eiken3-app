@@ -10,7 +10,7 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;line-height:1.6}.wrap{max-width:780px;margin:auto;padding:14px 14px 100px}
 .hero,.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;margin-bottom:14px;box-shadow:0 8px 25px #20293808}.hero{background:linear-gradient(145deg,#fff,#f0f1ff)}.brand{font-size:13px;font-weight:900;letter-spacing:.08em;color:var(--accent)}h1{font-size:29px;line-height:1.25;margin:4px 0}h2{font-size:21px;margin:0 0 10px}h3{font-size:17px;margin:12px 0 6px}.sub,.muted{color:var(--muted)}.count{font-size:34px;font-weight:900;color:var(--accent)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:15px;padding:13px 15px;font-size:16px;font-weight:800;background:#eef1f6;color:var(--ink);cursor:pointer}.btn.primary{background:var(--accent);color:#fff}.btn.blue{background:#e9f4ff;color:#0879df}.btn.good{background:var(--goodbg);color:var(--good)}.btn.warn{background:var(--warnbg);color:var(--warn)}.btn:active{transform:scale(.98)}.choices{display:grid;gap:9px;margin-top:14px}.choice{text-align:left;background:#fff;border:2px solid #e3e6ee;border-radius:14px;padding:13px;font-size:16px;font-weight:700;cursor:pointer}.choice:hover{border-color:#aaa6ff}.correct{background:var(--goodbg)!important;border-color:#6cc69a!important}.wrong{background:var(--badbg)!important;border-color:#e58b8b!important}.explain{margin-top:12px;padding:14px;border-radius:15px;background:#f7f8fc;border-left:5px solid var(--accent)}.tag{display:inline-block;background:var(--soft);color:var(--accent);padding:4px 9px;border-radius:999px;font-size:12px;font-weight:900;margin:2px}.pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#f0f2f7;margin:2px;font-size:13px}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f7f8fb;border-radius:16px;padding:13px;text-align:center}.stat b{display:block;font-size:25px}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;position:sticky;bottom:10px;background:#ffffffef;padding:8px;border-radius:18px;backdrop-filter:blur(10px);z-index:5}.tab{border:0;background:transparent;padding:8px 3px;font-weight:800;color:#677080}.tab.active{color:var(--accent)}.section{display:none}.section.active{display:block}.topline{display:flex;justify-content:space-between;gap:10px;align-items:center}.progress{height:10px;background:#e7e9f0;border-radius:99px;overflow:hidden}.progress>i{display:block;height:100%;background:var(--accent);width:0}.small{font-size:13px}.answer{margin-top:10px;font-weight:900}.textarea{width:100%;min-height:130px;border:2px solid #e1e4eb;border-radius:15px;padding:12px;font-size:16px;font-family:inherit}.audio{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.word{font-size:28px;font-weight:900}.jp{font-size:15px;color:var(--muted)}.divider{height:1px;background:var(--line);margin:16px 0}.hide{display:none!important}.notice{background:#fff8e8;border:1px solid #f1dfac;padding:12px;border-radius:14px}.link{color:#126fd3;text-decoration:underline;cursor:pointer;font-weight:800}
 @media(max-width:560px){.grid{grid-template-columns:1fr}.statgrid{grid-template-columns:repeat(3,1fr)}h1{font-size:27px}.wrap{padding-bottom:95px}}
-</style>
+.goodbox{border-left:5px solid var(--good);background:var(--goodbg)}.badbox{border-left:5px solid var(--bad);background:var(--badbg)}button.choice:disabled{cursor:default;opacity:.98}</style>
 </head>
 <body>
 <div class="wrap">
@@ -144,7 +144,7 @@ const vocab=[
 ["message","メッセージ","I got a message from my friend.","message＝伝言・メッセージ。"],
 ["station","駅","Let's meet at the station.","station＝駅、放送局など。"],
 ["direction","方向、道順","Can you tell me the way?","道案内ではdirectionよりwayもよく使う。"],
-["healthy","健康な","Fruit is good for you.","good for you＝体に良い。"],
+["good","良い、体に良い","Fruit is good for you.","good for you＝「体に良い」。"],
 ["popular","人気のある","This song is popular with teenagers.","popular＝人気のある。"],
 ["enjoy","楽しむ","I enjoyed the movie.","enjoyの後ろは名詞または動名詞。"],
 ["happen","起こる","What happened yesterday?","happen＝起こる。"],
@@ -291,21 +291,31 @@ function record(correct,tag){
  state.answered++;if(correct)state.correct++;else state.wrong.push(tag);
  state.logs.unshift(new Date().toLocaleString("ja-JP")+" / "+tag+" / "+(correct?"○":"×"));state.logs=state.logs.slice(0,80);save();
 }
+function shuffleChoices(items,correct){
+ const arr=items.map((text,i)=>({text,correct:i===correct}));
+ for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}
+ return {choices:arr.map(x=>x.text),ans:arr.findIndex(x=>x.correct)};
+}
 function optionHTML(item,idx,tag,onDone){
- return `<div class="choices">${item.choices.map((c,i)=>`<button class="choice" onclick="${onDone}(${i},${idx},'${tag}')">${String.fromCharCode(65+i)}. ${c}</button>`).join("")}</div>`;
+ return `<div class="choices">${item.choices.map((c,i)=>`<button class="choice" data-choice="${i}" onclick="${onDone}(${i},${idx},'${tag}')">${String.fromCharCode(65+i)}. ${c}</button>`).join("")}</div>`;
 }
 let practiceIndex=0;
-const practice=[
-...grammar.slice(0,12).map((g,i)=>({cat:"文法",q:g[1],choices:[g[2],...["are","do","did","play","was"].filter(x=>x!==g[2])].slice(0,4),ans:0,why:g[3],tag:"文法:"+g[0]})),
-...vocab.slice(0,14).map((v,i)=>({cat:"語彙",q:`次の文の空所に入る最も適切な語は？\n${v[2].replace(v[0],"_____")}`,choices:[v[0],"borrowed","important","usually"].slice(0,4),ans:0,why:v[3],tag:"単語:"+v[0]}))
-];
+const grammarDistractors={
+ "is":["are","am","was"],"play":["plays","played","playing"],"Does":["Do","Did","Is"],"Did":["Do","Does","Was"],"studies":["study","studied","studying"],"doesn't":["don't","didn't","isn't"],"ate":["eat","eats","eating"],"can":["will","should","is"],"will":["can","did","does"],"to buy":["buy","buying","bought"],"listening to":["listen to","listened to","listening"],"cheaper":["cheap","cheapest","expensive"],"to":["for","at","of"],"Where":["When","What","Who"],"usually":["never","now","yesterday"],"Open":["Opens","Opening","Opened"],"because":["but","and","so"],"when":["where","what","because"],"is spoken":["speaks","is speaking","spoke"],"is cooking":["cooks","cooked","cooking"],"was watching":["watched","is watching","watches"],"have to":["has to","had to","having to"],"should":["can","will","did"],"Let's":["Don't","Please","Did"],"How often":["How long","How many","Where"],"How long":["How often","How many","Where"],"my":["me","mine","I"],"because of":["because","so","when"]
+};
+const practice=[];
+grammar.slice(0,12).forEach(g=>{const d=grammarDistractors[g[2]]||["are","do","did"];const pack=shuffleChoices([g[2],...d.filter(x=>x!==g[2]).slice(0,3)],0);practice.push({cat:"文法",q:g[1],choices:pack.choices,ans:pack.ans,why:g[3],tag:"文法:"+g[0]})});
+vocab.slice(0,14).forEach(v=>{const ds=v[0]==="borrow"?["lend","arrive","return"]:v[0]==="arrive"?["leave","borrow","invite"]:["borrow","important","usually"];const pack=shuffleChoices([v[0],...ds.filter(x=>x!==v[0]).slice(0,3)],0);practice.push({cat:"語彙",q:`次の文の空所に入る最も適切な語は？\n${v[2].replace(v[0],"_____")}`,choices:pack.choices,ans:pack.ans,why:v[3],tag:"単語:"+v[0]})});
 function renderPractice(){
  const p=practice[practiceIndex%practice.length];
  document.getElementById("practiceArea").innerHTML=`<span class="tag">${p.cat}</span><h3>${p.q.replace(/\n/g,"<br>")}</h3>${optionHTML(p,practiceIndex,p.tag,"answerPractice")}<div id="practiceResult"></div><button class="btn" onclick="practiceIndex++;renderPractice()">次の問題 →</button>`;
 }
 function answerPractice(choice,idx,tag){
- const p=practice[idx%practice.length]; const ok=choice===p.ans;document.querySelectorAll("#practiceArea .choice").forEach((b,i)=>{if(i===p.ans)b.classList.add("correct");if(i===choice&&!ok)b.classList.add("wrong")});
- document.getElementById("practiceResult").innerHTML=`<div class="explain"><b>${ok?"⭕ 正解！":"❌ ここがポイント"}</b><br>${p.why}</div>`;
+ const p=practice[idx%practice.length];
+ if(p._answered)return; p._answered=true;
+ const ok=choice===p.ans;
+ document.querySelectorAll("#practiceArea .choice").forEach((b,i)=>{b.disabled=true;if(i===p.ans)b.classList.add("correct");if(i===choice&&!ok)b.classList.add("wrong")});
+ document.getElementById("practiceResult").innerHTML=`<div class="explain ${ok?"goodbox":"badbox"}"><b>${ok?"⭕ 正解！":"❌ ここがポイント"}</b><br>${p.why}</div>`;
  record(ok,tag);
 }
 let vocabIndex=0;
@@ -317,21 +327,40 @@ function showVocabMeaning(){const v=vocab[vocabIndex%vocab.length];document.getE
 let grammarIndex=0;
 function renderGrammar(){
  const g=grammar[grammarIndex%grammar.length];
- document.getElementById("grammarArea").innerHTML=`<span class="tag">${g[0]}</span><h3>${g[1]}</h3>${optionHTML({choices:[g[2],"are","do","did"].filter((x,i,a)=>a.indexOf(x)===i).slice(0,4)},grammarIndex,g[0],"answerGrammar")}<div id="grammarResult"></div><button class="btn" onclick="grammarIndex++;renderGrammar()">次の文法 →</button>`;
+ const d=grammarDistractors[g[2]]||["are","do","did"];
+ const pack=shuffleChoices([g[2],...d.filter(x=>x!==g[2]).slice(0,3)],0);
+ g._choices=pack.choices;g._ans=pack.ans;g._answered=false;
+ document.getElementById("grammarArea").innerHTML=`<span class="tag">${g[0]}</span><h3>${g[1]}</h3>${optionHTML({choices:g._choices},grammarIndex,g[0],"answerGrammar")}<div id="grammarResult"></div><button class="btn" onclick="grammarIndex++;renderGrammar()">次の文法 →</button>`;
 }
-function answerGrammar(choice,idx,tag){const g=grammar[idx%grammar.length];const opts=[g[2],"are","do","did"].filter((x,i,a)=>a.indexOf(x)===i).slice(0,4);const ok=opts[choice]===g[2];document.querySelectorAll("#grammarArea .choice").forEach((b,i)=>{if(i===opts.indexOf(g[2]))b.classList.add("correct");if(i===choice&&!ok)b.classList.add("wrong")});document.getElementById("grammarResult").innerHTML=`<div class="explain"><b>${ok?"⭕ 正解！":"❌ ここを覚えよう"}</b><br>${g[3]}</div>`;record(ok,"文法:"+tag)}
+function answerGrammar(choice,idx,tag){
+ const g=grammar[idx%grammar.length];
+ if(g._answered)return;g._answered=true;
+ const ok=choice===g._ans;
+ document.querySelectorAll("#grammarArea .choice").forEach((b,i)=>{b.disabled=true;if(i===g._ans)b.classList.add("correct");if(i===choice&&!ok)b.classList.add("wrong")});
+ document.getElementById("grammarResult").innerHTML=`<div class="explain ${ok?"goodbox":"badbox"}"><b>${ok?"⭕ 正解！":"❌ ここを覚えよう"}</b><br>${g[3]}</div>`;
+ record(ok,"文法:"+tag);
+}
 let readingIndex=0,readingQ=0;
 function renderReading(){
  const r=reading[readingIndex%reading.length],q=r.qs[readingQ%r.qs.length];
- document.getElementById("readingArea").innerHTML=`<span class="tag">長文</span><h3>${r.title}</h3><p>${r.text}</p><div class="divider"></div><b>${q[0]}</b><div class="choices">${q.slice(1).map((c,i)=>`<button class="choice" onclick="answerReading(${i},${readingIndex},${readingQ})">${String.fromCharCode(65+i)}. ${c}</button>`).join("")}</div><div id="readingResult"></div><button class="btn" onclick="readingQ++;if(readingQ%r.qs.length===0)readingIndex++;renderReading()">次の読解 →</button>`;
+ const pack=shuffleChoices(q.slice(1),0);r._choices=pack.choices;r._ans=pack.ans;r._answered=false;
+ document.getElementById("readingArea").innerHTML=`<span class="tag">長文</span><h3>${r.title}</h3><p>${r.text}</p><div class="divider"></div><b>${q[0]}</b><div class="choices">${r._choices.map((c,i)=>`<button class="choice" onclick="answerReading(${i},${readingIndex},${readingQ})">${String.fromCharCode(65+i)}. ${c}</button>`).join("")}</div><div id="readingResult"></div><button class="btn" onclick="readingQ++;if(readingQ%r.qs.length===0)readingIndex++;renderReading()">次の読解 →</button>`;
 }
-function answerReading(c,ri,qi){const r=reading[ri%reading.length],q=r.qs[qi%r.qs.length];const ok=c===0;document.querySelectorAll("#readingArea .choice").forEach((b,i)=>{if(i===0)b.classList.add("correct");if(i===c&&!ok)b.classList.add("wrong")});document.getElementById("readingResult").innerHTML=`<div class="explain"><b>${ok?"⭕ 正解！":"❌ 本文に戻ろう"}</b><br>答え：${q[1]}<br>本文の「誰が・何を・いつ・なぜ」を探すと解きやすいよ。</div>`;record(ok,"読解:"+r.title)}
+function answerReading(c,ri,qi){
+ const r=reading[ri%reading.length],q=r.qs[qi%r.qs.length];
+ if(r._answered)return;r._answered=true;
+ const ok=c===r._ans;
+ document.querySelectorAll("#readingArea .choice").forEach((b,i)=>{b.disabled=true;if(i===r._ans)b.classList.add("correct");if(i===c&&!ok)b.classList.add("wrong")});
+ const answerText=r._choices[r._ans];
+ document.getElementById("readingResult").innerHTML=`<div class="explain ${ok?"goodbox":"badbox"}"><b>${ok?"⭕ 正解！":"❌ ここがポイント"}</b><br>正解：${answerText}<br>${q[1]}<br><br>本文の「誰が・何を・いつ・なぜ」を探すと解きやすいよ。</div>`;
+ record(ok,"読解:"+r.title);
+}
 let listenIndex=0;
 function renderListening(){
  const l=listening[listenIndex%listening.length];
  document.getElementById("listeningArea").innerHTML=`<span class="tag">${l.part}</span><p id="listenText">${l.text.replace(/\n/g,"<br>")}</p><div class="audio"><button class="btn primary" onclick="speak(\`${l.text.replace(/`/g,"")}\`)">🔊 再生</button><button class="btn" onclick="speakSlow(\`${l.text.replace(/`/g,"")}\`)">🐢 ゆっくり</button></div><div class="choices">${l.choices.map((c,i)=>`<button class="choice" onclick="answerListening(${i},${listenIndex})">${String.fromCharCode(65+i)}. ${c}</button>`).join("")}</div><div id="listenResult"></div><button class="btn" onclick="listenIndex++;renderListening()">次の問題 →</button>`;
 }
-function answerListening(c,idx){const l=listening[idx%listening.length],ok=c===l.ans;document.querySelectorAll("#listeningArea .choice").forEach((b,i)=>{if(i===l.ans)b.classList.add("correct");if(i===c&&!ok)b.classList.add("wrong")});document.getElementById("listenResult").innerHTML=`<div class="explain"><b>${ok?"⭕ 正解！":"❌ ここを確認"}</b><br>${l.why}</div>`;record(ok,"リスニング:"+l.part)}
+function answerListening(c,idx){const l=listening[idx%listening.length];if(l._answered)return;l._answered=true;const ok=c===l.ans;document.querySelectorAll("#listeningArea .choice").forEach((b,i)=>{b.disabled=true;if(i===l.ans)b.classList.add("correct");if(i===c&&!ok)b.classList.add("wrong")});document.getElementById("listenResult").innerHTML=`<div class="explain ${ok?"goodbox":"badbox"}"><b>${ok?"⭕ 正解！":"❌ ここを確認"}</b><br>${l.why}</div>`;record(ok,"リスニング:"+l.part)}
 let writeIndex=0;
 function renderWriting(){
  const w=writing[writeIndex%writing.length];
