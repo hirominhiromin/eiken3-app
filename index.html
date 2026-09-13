@@ -4,468 +4,369 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#635bff">
-<title>英検3級 合格アプリ V1.4</title>
+<title>英検3級 合格アプリ</title>
 <style>
-:root{--ink:#202938;--muted:#6b7280;--bg:#f5f7fb;--card:#fff;--line:#e6e8ef;--accent:#635bff;--soft:#efefff;--good:#0b8f55;--goodbg:#e9f8f0;--bad:#c93636;--badbg:#fff0f0;--warn:#9a6500;--warnbg:#fff8e5}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;line-height:1.55}.wrap{max-width:760px;margin:auto;padding:14px 14px 92px}
-.hero{background:linear-gradient(145deg,#fff,#f0f1ff);border:1px solid #e6e7f7;border-radius:26px;padding:22px 20px;box-shadow:0 10px 30px #0000000a}.brand{font-size:13px;font-weight:900;letter-spacing:.07em;color:var(--accent)}h1{font-size:29px;line-height:1.25;margin:4px 0 5px}.sub{color:var(--muted);font-size:15px}.count{font-size:17px;font-weight:800;margin-top:15px}.days{font-size:38px;color:var(--accent);font-weight:950}.bar{height:10px;background:#e5e7ef;border-radius:99px;overflow:hidden;margin:9px 0 5px}.bar i{display:block;height:100%;width:0;background:var(--accent);transition:.3s}.card{background:var(--card);border:1px solid var(--line);border-radius:21px;padding:17px;margin-top:13px;box-shadow:0 4px 18px #00000008}.card h2{font-size:19px;margin:0 0 10px}.muted{color:var(--muted);font-size:14px}.mini{font-size:12px;color:var(--muted)}button{font:inherit;cursor:pointer}.btn{border:0;border-radius:14px;padding:11px 15px;font-weight:850}.accent{background:var(--accent);color:#fff}.dark{background:var(--ink);color:#fff}.ghost{background:#eef0f5;color:var(--ink)}.danger{background:#fff0f0;color:var(--bad)}.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{border:0;border-radius:999px;background:#eef0f5;padding:9px 13px;font-weight:800;color:#1674d1}.chip.active{background:var(--accent);color:#fff}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.tile{border:1px solid var(--line);background:#fff;border-radius:17px;padding:14px;text-align:left;font-weight:900}.tile small{display:block;color:var(--muted);font-weight:500;margin-top:3px}.route{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.route button{padding:11px 7px;border:2px solid var(--line);background:#fff;border-radius:15px;font-weight:850}.route button.sel{border-color:var(--accent);background:var(--soft)}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f7f8fb;border-radius:15px;padding:10px;text-align:center}.stat b{display:block;font-size:21px}.page.hidden,.hidden{display:none!important}.tag{display:inline-block;border-radius:999px;padding:4px 9px;background:#eef0f5;font-size:12px;font-weight:800;margin-right:5px}.q{font-size:20px;font-weight:850;margin:10px 0 14px}.choice{display:block;width:100%;text-align:left;background:#f5f6f9;border:2px solid transparent;border-radius:14px;padding:12px;margin:8px 0;font-size:16px}.choice.correct{background:var(--goodbg);border-color:#6bc795}.choice.wrong{background:var(--badbg);border-color:#e59b9b}.feedback{border-radius:15px;padding:12px;margin-top:10px;background:#f5f6f9}.feedback.good{background:var(--goodbg)}.feedback.bad{background:var(--badbg)}.feedback b{font-weight:900}.explain{margin-top:5px}.check{padding:8px 0;border-bottom:1px solid #eee}.check:last-child{border:0}.ok{color:var(--good);font-weight:850}.ng{color:var(--bad);font-weight:850}.warn{color:var(--warn);font-weight:850}.word{font-size:27px;font-weight:950}.translation{color:var(--muted)}textarea{width:100%;min-height:130px;border:1px solid #d8dce5;border-radius:14px;padding:12px;font-size:16px;line-height:1.6;background:#fff}.prompt{background:#f7f8fb;border-radius:15px;padding:13px}.listenbox{background:#f7f8fb;border-radius:17px;padding:15px;margin-top:10px}.listen-controls{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.speed{border:0;border-radius:12px;padding:10px 13px;background:#fff;font-weight:850;box-shadow:0 2px 7px #0000000b}.meter{display:flex;gap:5px;margin:8px 0}.meter i{height:6px;flex:1;background:#e3e5eb;border-radius:99px}.meter i.on{background:var(--accent)}.nav{position:fixed;left:0;right:0;bottom:0;background:#ffffffee;backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:20}.nav button{flex:1;max-width:190px;border:0;background:transparent;padding:8px 3px 10px;font-size:12px;font-weight:850;color:#6b7280}.nav button.on{color:var(--accent)}.nav span{display:block;font-size:20px}.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:flex-end;justify-content:center;z-index:50}.modalbox{background:#fff;width:min(760px,100%);max-height:92vh;overflow:auto;border-radius:25px 25px 0 0;padding:20px}.diagq{font-size:18px;font-weight:850}.option{display:block;border:1px solid var(--line);border-radius:13px;padding:11px;margin:7px 0;background:#fff}.option input{margin-right:8px}.result{background:linear-gradient(145deg,#f2f1ff,#fff);border-radius:18px;padding:16px}.pill{display:inline-block;padding:5px 9px;border-radius:99px;background:#eef0f5;margin:3px;font-size:12px;font-weight:800}.tip{border-left:4px solid var(--accent);padding-left:10px;margin:9px 0}.empty{text-align:center;padding:20px 5px}.smalllink{color:var(--accent);text-decoration:underline;font-weight:800;cursor:pointer}@media(min-width:650px){.grid{grid-template-columns:repeat(3,1fr)}.modal{align-items:center}.modalbox{border-radius:25px}.wrap{padding-bottom:100px}}
+:root{--ink:#202938;--muted:#687386;--bg:#f4f6fb;--card:#fff;--line:#e4e7ef;--accent:#635bff;--soft:#efefff;--blue:#1488ff;--good:#118b55;--goodbg:#e9f8f0;--bad:#c73535;--badbg:#fff0f0;--warn:#9a6500;--warnbg:#fff8e5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;line-height:1.6}.wrap{max-width:780px;margin:auto;padding:14px 14px 100px}
+.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;margin-bottom:14px;box-shadow:0 8px 25px #20293808}.hero{background:linear-gradient(145deg,#fff,#f0f1ff)}.brand{font-size:13px;font-weight:900;letter-spacing:.08em;color:var(--accent)}h1{font-size:29px;line-height:1.25;margin:4px 0}h2{font-size:21px;margin:0 0 10px}h3{font-size:17px;margin:12px 0 6px}.sub,.muted{color:var(--muted)}.count{font-size:34px;font-weight:900;color:var(--accent)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;border-radius:15px;padding:13px 15px;font-size:16px;font-weight:800;background:#eef1f6;color:var(--ink);cursor:pointer}.btn.primary{background:var(--accent);color:#fff}.btn.blue{background:#e9f4ff;color:#0879df}.btn.good{background:var(--goodbg);color:var(--good)}.btn.warn{background:var(--warnbg);color:var(--warn)}.btn:active{transform:scale(.98)}.choices{display:grid;gap:9px;margin-top:14px}.choice{text-align:left;background:#fff;border:2px solid #e3e6ee;border-radius:14px;padding:13px;font-size:16px;font-weight:700;cursor:pointer}.choice:hover{border-color:#aaa6ff}.correct{background:var(--goodbg)!important;border-color:#6cc69a!important}.wrong{background:var(--badbg)!important;border-color:#e58b8b!important}.explain{margin-top:12px;padding:14px;border-radius:15px;background:#f7f8fc;border-left:5px solid var(--accent)}.tag{display:inline-block;background:var(--soft);color:var(--accent);padding:4px 9px;border-radius:999px;font-size:12px;font-weight:900;margin:2px}.pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#f0f2f7;margin:2px;font-size:13px}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f7f8fb;border-radius:16px;padding:13px;text-align:center}.stat b{display:block;font-size:25px}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;position:sticky;bottom:10px;background:#ffffffef;padding:8px;border-radius:18px;backdrop-filter:blur(10px);z-index:5}.tab{border:0;background:transparent;padding:8px 3px;font-weight:800;color:#677080}.tab.active{color:var(--accent)}.section{display:none}.section.active{display:block}.topline{display:flex;justify-content:space-between;gap:10px;align-items:center}.progress{height:10px;background:#e7e9f0;border-radius:99px;overflow:hidden}.progress>i{display:block;height:100%;background:var(--accent);width:0}.small{font-size:13px}.answer{margin-top:10px;font-weight:900}.textarea{width:100%;min-height:130px;border:2px solid #e1e4eb;border-radius:15px;padding:12px;font-size:16px;font-family:inherit}.audio{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.word{font-size:28px;font-weight:900}.jp{font-size:15px;color:var(--muted)}.divider{height:1px;background:var(--line);margin:16px 0}.hide{display:none!important}.notice{background:#fff8e8;border:1px solid #f1dfac;padding:12px;border-radius:14px}.link{color:#126fd3;text-decoration:underline;cursor:pointer;font-weight:800}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.statgrid{grid-template-columns:repeat(3,1fr)}h1{font-size:27px}.wrap{padding-bottom:95px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header class="hero">
+<section class="hero">
   <div class="brand">EIKEN GRADE 3 • STUDY COACH</div>
   <h1>英検3級 合格アプリ</h1>
   <div class="sub">スキマ時間で、英検3級合格へ。</div>
-  <div class="count">10月4日の本番まであと <span class="days" id="days">--</span> 日</div>
-  <div class="bar"><i id="overallBar"></i></div>
-  <div class="muted" id="headline">今日1問でもやればOK。時間がある日は、そのまま続けよう！</div>
-</header>
+  <p><b>10月4日の本番まであと <span id="days" class="count">--</span> 日</b></p>
+  <div class="progress"><i id="goalBar"></i></div>
+  <p class="muted small">1分でもOK。時間がある日は、そのまま続けよう。休んだ日があってもペナルティなし。</p>
+</section>
 
-<section id="home" class="page">
+<section id="home" class="section active">
   <div class="card">
     <h2>🎯 今日のおすすめ</h2>
-    <div id="recommend"></div>
-    <div class="btnrow">
-      <button class="btn accent" onclick="startRecommended()">おすすめを始める</button>
-      <button class="btn ghost" onclick="openDiagnosis()">実力チェック</button>
-    </div>
+    <p id="recommend">まずは実力チェック。苦手を見つけて、必要なところから始めます。</p>
+    <div class="grid"><button class="btn primary" onclick="startDiagnosis()">実力チェック10問</button><button class="btn blue" onclick="show('practice')">すぐ問題を解く</button></div>
   </div>
-
   <div class="card">
     <h2>⏱ 今日はどれくらい？</h2>
-    <div class="chips" id="timeChips">
-      <button class="chip" data-time="1">1分</button><button class="chip" data-time="3">3分</button><button class="chip active" data-time="5">5分</button><button class="chip" data-time="10">10分</button><button class="chip" data-time="20">20分</button>
+    <div class="grid">
+      <button class="btn" onclick="setTime(1)">1分</button><button class="btn" onclick="setTime(3)">3分</button>
+      <button class="btn" onclick="setTime(5)">5分</button><button class="btn" onclick="setTime(10)">10分</button>
+      <button class="btn" onclick="setTime(20)">20分</button><button class="btn good" onclick="setTime(99)">まだいける🔥</button>
     </div>
-    <div class="muted" style="margin-top:7px">時間は目安。終わりたくなければ、そのまま続けてOK。</div>
+    <p id="timeMsg" class="muted">時間は目安。終わりたくなければ、そのまま続けてOK。</p>
   </div>
-
   <div class="card">
     <h2>📚 勉強する</h2>
     <div class="grid">
-      <button class="tile" onclick="startQuiz('vocab')">🔤 単語<small>3級頻出語を少しずつ</small></button>
-      <button class="tile" onclick="startQuiz('grammar')">🧩 基礎文法<small>be・do・過去・疑問文</small></button>
-      <button class="tile" onclick="startQuiz('reading')">📖 読解<small>短文・会話・案内</small></button>
-      <button class="tile" onclick="startListening()">🎧 リスニング<small>ゆっくり→本番速度</small></button>
-      <button class="tile" onclick="openWriting()">✍️ ライティング<small>Eメール＋英作文</small></button>
-      <button class="tile" onclick="openInterview()">🗣️ 面接<small>音読＋質問練習</small></button>
+      <button class="btn blue" onclick="show('vocab')">🔤 単語</button>
+      <button class="btn blue" onclick="show('grammar')">🧩 基礎文法</button>
+      <button class="btn blue" onclick="show('reading')">📖 読解</button>
+      <button class="btn blue" onclick="show('listening')">🎧 リスニング</button>
+      <button class="btn blue" onclick="show('writing')">✍️ ライティング</button>
+      <button class="btn blue" onclick="show('interview')">🗣️ 面接</button>
     </div>
   </div>
-
   <div class="card">
     <h2>🧭 あなたのルート</h2>
-    <div class="route">
-      <button id="r1" onclick="setRoute('basic')">🌱 基礎から</button>
-      <button id="r2" onclick="setRoute('exam')">🟡 3級対策</button>
-      <button id="r3" onclick="setRoute('last')">🔥 直前対策</button>
+    <div class="grid">
+      <button class="btn" onclick="setRoute('basic')">🌱 基礎から</button>
+      <button class="btn primary" onclick="setRoute('grade3')">🟡 3級対策</button>
+      <button class="btn" onclick="setRoute('last')">🔥 直前対策</button>
+      <button class="btn warn" onclick="startMock()">📝 ミニ模試</button>
     </div>
-    <p class="muted" id="routeText"></p>
+    <p id="routeMsg" class="muted">🟡 3級対策：単語・文法・読解・リスニング・ライティング・面接をバランスよく。</p>
   </div>
-
   <div class="card">
     <h2>📊 学習状況</h2>
-    <div class="statgrid">
-      <div class="stat"><b id="answered">0</b>解答数</div>
-      <div class="stat"><b id="accuracy">--</b>正答率</div>
-      <div class="stat"><b id="mistakeCount">0</b>弱点</div>
-    </div>
-    <div class="btnrow">
-      <button class="btn ghost" onclick="showMistakes()">🔁 弱点を復習</button>
-      <button class="btn ghost" onclick="showHistory()">📈 学習記録</button>
-    </div>
+    <div class="statgrid"><div class="stat"><b id="answered">0</b>解答数</div><div class="stat"><b id="accuracy">0%</b>正答率</div><div class="stat"><b id="weak">0</b>弱点</div></div>
+    <div class="grid" style="margin-top:10px"><button class="btn" onclick="reviewWeak()">🔄 弱点を復習</button><button class="btn" onclick="showLog()">📈 学習記録</button></div>
   </div>
 </section>
 
-<section id="study" class="page hidden">
-  <div class="card">
-    <div><span class="tag" id="studyTag">3級対策</span><span class="muted" id="qCount"></span></div>
-    <div class="meter" id="meter"></div>
-    <div id="questionArea"></div>
-    <div class="btnrow">
-      <button class="btn ghost" onclick="goHome()">ホーム</button>
-      <button class="btn accent hidden" id="nextBtn" onclick="nextQuestion()">次の問題 →</button>
-    </div>
-  </div>
+<section id="practice" class="section">
+  <div class="card"><div class="topline"><h2>📝 3級トレーニング</h2><span id="practiceTag" class="tag">オリジナル問題</span></div><p class="muted">現在の英検3級の出題形式を意識したオリジナル問題です。</p><div id="practiceArea"></div></div>
 </section>
 
-<section id="listening" class="page hidden">
-  <div class="card">
-    <h2>🎧 リスニング・トレーニング</h2>
-    <p class="muted">まず「ゆっくり」で意味をつかみ、次に「本番速度」。最後は音を見ずに答えてみよう。</p>
-    <div class="listenbox">
-      <span class="tag" id="listenTag">会話</span>
-      <div class="q" id="listenText">Would you like some tea?</div>
-      <div class="listen-controls">
-        <button class="speed" onclick="speakListening(.65)">🐢 ゆっくり</button>
-        <button class="speed" onclick="speakListening(.9)">🔊 本番速度</button>
-        <button class="speed" onclick="speakListening(.9)">🔁 もう一度</button>
-      </div>
-      <p class="mini">※音声は端末の英語音声を使用します。端末によって声が変わります。</p>
-    </div>
-    <div id="listenQuestionArea"></div>
-    <div class="btnrow">
-      <button class="btn ghost" onclick="goHome()">ホーム</button>
-      <button class="btn accent" onclick="nextListening()">次のリスニング →</button>
-    </div>
-  </div>
+<section id="vocab" class="section">
+  <div class="card"><h2>🔤 単語トレーニング</h2><p class="muted">3級で使いやすい身近な語を、意味→文脈→確認の順で覚えます。</p><div id="vocabArea"></div></div>
 </section>
 
-<section id="writing" class="page hidden">
-  <div class="card">
-    <h2>✍️ ライティング練習</h2>
-    <p class="muted">まず型を使ってOK。慣れたら、自分の言葉を増やしていこう。</p>
-    <div class="prompt"><span class="tag">Eメール</span><p><b>Hi! I want to have a fun weekend. What do you like to do on weekends? Please tell me about it.</b></p></div>
-    <textarea id="emailAnswer" placeholder="I like ..."></textarea>
-    <div class="btnrow"><button class="btn accent" onclick="checkEmail()">チェックする</button></div>
-    <div id="emailFeedback"></div>
-  </div>
-  <div class="card">
-    <div class="prompt"><span class="tag">英作文</span><p><b>QUESTION: Do you like studying English?</b></p></div>
-    <div class="tip"><b>3級の基本形</b><br>①自分の考え　→　②理由1　→　③理由2</div>
-    <textarea id="essayAnswer" placeholder="I think ... because ... Also, ..."></textarea>
-    <div class="btnrow"><button class="btn accent" onclick="checkEssay()">セルフ採点</button><button class="btn ghost" onclick="insertEssayTemplate()">型を入れる</button></div>
-    <div id="essayFeedback"></div>
-    <p class="mini">公式の英作文は4観点（各0～4点）で評価されます。まずは「考え＋理由2つ」を落とさないことを目標に。</p>
-  </div>
-  <button class="btn ghost" onclick="goHome()">ホームへ</button>
+<section id="grammar" class="section">
+  <div class="card"><h2>🧩 基礎文法</h2><p class="muted">「doって何？」からでもOK。答えだけでなく、なぜそうなるかを説明します。</p><div id="grammarArea"></div></div>
 </section>
 
-<section id="interview" class="page hidden">
-  <div class="card">
-    <h2>🗣️ 3級 面接ミニ練習</h2>
-    <p class="muted">本番は約5分。音読＋質問。今日は1問だけでもOK。</p>
-    <div class="listenbox">
-      <span class="tag">質問</span>
-      <div class="q" id="interviewQ"></div>
-      <div class="btnrow"><button class="btn accent" onclick="speak(document.getElementById('interviewQ').innerText)">🔊 質問を聞く</button><button class="btn ghost" onclick="newInterview()">別の質問</button></div>
-      <textarea id="interviewAnswer" placeholder="Yes, I do. I like ..."></textarea>
-      <div class="btnrow"><button class="btn accent" onclick="checkInterview()">答え方を見る</button></div>
-      <div id="interviewFeedback"></div>
-    </div>
-  </div>
-  <div class="card">
-    <h2>📖 音読ミニ練習</h2>
-    <p id="readAloud" class="q">Ken likes soccer. He plays it with his friends after school.</p>
-    <button class="btn accent" onclick="speak(document.getElementById('readAloud').innerText)">🔊 音読を聞く</button>
-    <p class="mini">本番を意識して、聞いたあと自分でも声に出してみよう。</p>
-  </div>
-  <button class="btn ghost" onclick="goHome()">ホームへ</button>
+<section id="reading" class="section">
+  <div class="card"><h2>📖 読解</h2><p class="muted">掲示・案内・メール・説明文など、3級で出やすい場面を練習。</p><div id="readingArea"></div></div>
 </section>
 
-<section id="mistakes" class="page hidden">
-  <div class="card"><h2>🔁 弱点復習</h2><p class="muted">間違えた問題はここに残ります。もう一度解いて「わかった」に変えよう。</p><div id="mistakeArea"></div><button class="btn ghost" onclick="goHome()">ホームへ</button></div>
+<section id="listening" class="section">
+  <div class="card"><h2>🎧 リスニング</h2><p class="muted">Part 1＝応答、Part 2＝会話、Part 3＝短い文章を練習。音声は端末の読み上げ機能を使います。</p><div class="notice small">本番ではPart 1は1回、Part 2・3は2回。ここでは練習のため、速度変更・再生を自由にできます。</div><div id="listeningArea"></div></div>
 </section>
 
-<section id="history" class="page hidden">
-  <div class="card"><h2>📈 学習記録</h2><div id="historyArea"></div><button class="btn ghost" onclick="goHome()">ホームへ</button></div>
+<section id="writing" class="section">
+  <div class="card"><h2>✍️ ライティング道場</h2><p class="muted">3級はEメール1問＋英作文1問。まず型を身につけてから自由作文へ。</p><div id="writingArea"></div></div>
 </section>
+
+<section id="interview" class="section">
+  <div class="card"><h2>🗣️ 面接トレーニング</h2><p class="muted">音読→本文質問→イラスト描写→自分の意見。聞き返しも自然なら練習できます。</p><div id="interviewArea"></div></div>
+</section>
+
+<section id="diagnosis" class="section">
+  <div class="card"><h2>🎯 実力チェック</h2><p id="diagIntro" class="muted">10問で、基礎・単語・読解・リスニング・ライティング・面接の入口をチェック。</p><div id="diagArea"></div></div>
+</section>
+
+<section id="mock" class="section">
+  <div class="card"><h2>📝 ミニ模試</h2><p class="muted">本番の形式を意識した短縮版。最後に分野別の結果を表示します。</p><div id="mockArea"></div></div>
+</section>
+
+<section id="log" class="section">
+  <div class="card"><h2>📈 学習記録</h2><div id="logArea"></div></div>
+</section>
+
+<div class="tabs">
+<button class="tab active" id="tab-home" onclick="show('home')">🏠<br>ホーム</button>
+<button class="tab" id="tab-practice" onclick="show('practice')">📝<br>問題</button>
+<button class="tab" id="tab-writing" onclick="show('writing')">✍️<br>書く</button>
+<button class="tab" id="tab-interview" onclick="show('interview')">🗣️<br>面接</button>
 </div>
-
-<nav class="nav">
-  <button id="navHome" class="on" onclick="showPage('home')"><span>🏠</span>ホーム</button>
-  <button id="navStudy" onclick="startQuiz('all')"><span>📝</span>問題</button>
-  <button id="navWriting" onclick="openWriting()"><span>✍️</span>書く</button>
-  <button id="navInterview" onclick="openInterview()"><span>🗣️</span>面接</button>
-</nav>
-
-<div id="diagnosisModal" class="modal hidden">
-  <div class="modalbox">
-    <h2>🎯 まずは実力チェック</h2>
-    <p class="muted">10問で、今の得意・苦手をざっくり診断します。点数で責めません。次に何をやるかを決めるためのチェックです。</p>
-    <div id="diagArea"></div>
-    <div class="btnrow"><button class="btn ghost" onclick="closeDiagnosis()">あとで</button><button class="btn accent" id="diagNext" onclick="diagNext()">次へ</button></div>
-  </div>
 </div>
 
 <script>
-const DATA={
-vocab:[
-["I usually get up at seven.","usually",["always","yesterday","different"],"usually＝「ふつうは・たいてい」。","単語"],
-["Please ___ this book from the library.","borrow",["lend","arrive","practice"],"borrow＝「借りる」。lend＝「貸す」。","単語"],
-["We will ___ at the station at six.","arrive",["borrow","practice","leave"],"arrive＝「到着する」。","単語"],
-["I stayed home ___ it was raining.","because",["but","or","so"],"because＝「～なので」。後ろに理由が来ます。","単語"],
-["My bag is ___ from yours.","different",["same","easy","late"],"different from～＝「～と違う」。","単語"],
-["I need to ___ English every day.","practice",["borrow","arrive","lend"],"practice＝「練習する」。","単語"],
-["Can you ___ me your pen?","lend",["borrow","arrive","usually"],"lend＝「貸す」。borrow＝「借りる」。","単語"],
-["The movie was very ___.","interesting",["careful","different","early"],"interesting＝「興味深い・面白い」。","単語"],
-["I am ___ for the bus.","waiting",["making","opening","borrowing"],"wait for～＝「～を待つ」。","単語"],
-["Please turn ___ the light.","off",["at","from","with"],"turn off＝「電気などを消す」。","単語"]
-],
-grammar:[
-["She ___ my sister.","is",["are","am","were"],"Sheは1人なのでbe動詞はis。","be動詞"],
-["They ___ happy yesterday.","were",["was","are","is"],"They＋過去のbe動詞＝were。","be動詞"],
-["He ___ soccer every Sunday.","plays",["play","played","playing"],"Heなので一般動詞にs。play→plays。","三単現"],
-["I ___ like coffee.","do not",["does not","am not","did not"],"I＋一般動詞の否定＝do not＋動詞原形。","否定文"],
-["___ she like music?","Does",["Do","Is","Did"],"SheなのでDoes＋主語＋動詞原形。","疑問文"],
-["They ___ to the park yesterday.","went",["go","goes","going"],"yesterday→過去。go→wentは不規則変化。","過去形"],
-["___ you play tennis?","Do",["Does","Is","Did"],"I/you/we/theyの一般動詞疑問文はDo。","疑問文"],
-["He ___ swim very well.","can",["is","does","was"],"can＋動詞原形＝「～できる」。","助動詞"],
-["I want ___ a new bike.","to buy",["buying","bought","buys"],"want to＋動詞原形＝「～したい」。","to不定詞"],
-["She enjoys ___ books.","reading",["read","to read","reads"],"enjoy＋動名詞（-ing）。","動名詞"],
-["Did you ___ TV last night?","watch",["watched","watches","watching"],"Didの後ろは必ず動詞原形。","過去の疑問文"],
-["My mother ___ dinner now.","is cooking",["cooks","cooked","cook"],"now→現在進行形：be＋-ing。","進行形"],
-["There ___ two books on the desk.","are",["is","am","was"],"two booksと複数なのでare。","be動詞"],
-["Tom ___ a new bag last week.","bought",["buy","buys","buying"],"last week→過去。buy→bought。","過去形"]
-],
-reading:[
-["Ken has soccer practice on Tuesday. He goes to the library on Wednesday. When does Ken go to the library?","Wednesday",["Tuesday","Friday","Sunday"],"本文の曜日を探します。","読解"],
-["Lisa bought some bread and milk. She went home at three. What did Lisa buy?","bread and milk",["a book","a bag","some fruit"],"買ったものを確認します。","読解"],
-["NOTICE: The school library is closed on Monday. It will open at 9:00 on Tuesday. When can students use it?","Tuesday at 9:00",["Monday at 9:00","Tuesday at 8:00","Friday at 9:00"],"closed on Monday→Tuesdayの9時から。","案内"],
-["Mike: Would you like to play tennis? Anna: Sorry, I have to study today. What does Anna need to do?","study",["play tennis","go shopping","cook dinner"],"have to＝「～しなければならない」。","会話"],
-["Dear Tom, I will visit your town next Saturday. Can you show me your favorite place? What does the writer want Tom to do?","show a favorite place",["buy a present","visit school","play soccer"],"Can you～? は依頼です。","Eメール"],
-["The park is open from 8:00 to 5:00. Sara arrives at 4:00. Can she enter the park?","Yes",["No","Only at 8:00","Only on Sunday"],"4時は8～5時の間です。","案内"],
-["John likes cooking. On Saturday, he makes curry for his family. What does John make?","curry",["cake","bread","salad"],"makes curry for his family。","読解"],
-["School trip: Please meet at the station at 7:30. The bus leaves at 8:00. When should students meet?","7:30",["7:00","8:00","8:30"],"meet at～＝「～に集合する」。","案内"]
-],
-all:[]
-};
-DATA.all=[...DATA.vocab,...DATA.grammar,...DATA.reading];
-
-const LISTEN=[
-["会話","Would you like some tea?",["Yes, please.","At five.","It is mine."],"Would you like～? への自然な返答はYes, please."],
-["応答","What time do you get up?",["At seven.","Yes, I do.","It is blue."],"What time～? には時間で答えます。"],
-["会話","How was your weekend?",["It was great.","At the station.","Yes, I can."],"How was～? には感想・状態で答えます。"],
-["応答","Can you help me?",["Sure.","At three.","It's my book."],"Can you～? への依頼にはSure.などで答えられます。"],
-["会話","What did you do yesterday?",["I played soccer.","At seven.","Yes, I am."],"What did you do～? には過去の行動で答えます。"]
+const vocab=[
+["borrow","借りる","Can I borrow your pen?","borrowは「借りる」。lendは「貸す」。"],
+["arrive","到着する","We arrived at the station at six.","arrive at＋小さい場所、arrive in＋都市・国が基本。"],
+["usually","ふつうは、たいてい","I usually walk to school.","usuallyは「いつも」より少し弱い「たいてい」。"],
+["different","違う、異なる","This book is different from that one.","different fromの形で覚える。"],
+["practice","練習する／練習","I practice English every day.","practiceは名詞にも動詞にもなる。"],
+["decide","決める","We decided to visit Kyoto.","decide to＋動詞の原形。"],
+["enough","十分な","I have enough time.","enoughは「十分な」。"],
+["important","重要な","Sleep is important for our health.","important＝大切な、重要な。"],
+["invite","招待する","I invited Ken to my party.","invite A to B＝AをBに招待する。"],
+["remember","覚えている","Please remember my name.","remember to do＝忘れずに～する。"],
+["forget","忘れる","Don't forget to call me.","forget to do＝～するのを忘れる。"],
+["because","なぜなら","I stayed home because it was raining.","becauseの後ろは文。"],
+["before","～の前に","Wash your hands before dinner.","before＋名詞／文。"],
+["during","～の間に","I read during the break.","duringの後ろは名詞が基本。"],
+["another","もう一つの、別の","Can I have another cup?","another＋単数名詞。"],
+["together","一緒に","Let's study together.","together＝一緒に。"],
+["friendly","親しみやすい","Our new teacher is very friendly.","-lyでも形容詞のfriendly。"],
+["favorite","お気に入りの","What is your favorite sport?","favorite＝一番好きな、お気に入りの。"],
+["healthy","健康な","Walking is a healthy habit.","health（名詞）→healthy（形容詞）。"],
+["careful","注意深い","Be careful when you cross the road.","Be careful!＝気をつけて！"],
+["weather","天気","The weather is nice today.","weatherとwhetherを区別。"],
+["future","未来","What do you want to do in the future?","in the future＝将来。"],
+["experience","経験","It was a good experience.","experienceは「経験」。"],
+["culture","文化","I want to learn about Japanese culture.","culture＝文化。"],
+["foreign","外国の","I like foreign movies.","foreign＝外国の。"],
+["message","メッセージ","I got a message from my friend.","message＝伝言・メッセージ。"],
+["station","駅","Let's meet at the station.","station＝駅、放送局など。"],
+["direction","方向、道順","Can you tell me the way?","道案内ではdirectionよりwayもよく使う。"],
+["healthy","健康な","Fruit is good for you.","good for you＝体に良い。"],
+["popular","人気のある","This song is popular with teenagers.","popular＝人気のある。"],
+["enjoy","楽しむ","I enjoyed the movie.","enjoyの後ろは名詞または動名詞。"],
+["happen","起こる","What happened yesterday?","happen＝起こる。"],
+["return","戻る、返す","I will return the book tomorrow.","return＝戻る／返す。"],
+["save","保存する、節約する","I save money for my trip.","save money＝お金を貯める。"],
+["spend","費やす","I spend two hours studying English.","spend＋時間＋doing。"],
+["plan","計画する／計画","We plan to visit Osaka.","plan to＋動詞の原形。"],
+["future","将来","She wants to be a nurse in the future.","in the future＝将来。"],
+["probably","たぶん、おそらく","It will probably rain.","probably＝おそらく。"],
+["especially","特に","I like fruit, especially apples.","especially＝特に。"],
+["almost","ほとんど","It is almost five o'clock.","almost＝ほとんど、もう少しで。"],
+["early","早く／早い","I got up early this morning.","earlyは副詞にも形容詞にもなる。"],
+["late","遅く／遅い","Don't be late for school.","be late for～＝～に遅れる。"],
+["quickly","すばやく","Please come quickly.","quickly＝すばやく。"],
+["quiet","静かな","Please be quiet in the library.","quiet＝静かな。quiteとは別語。"],
+["noisy","うるさい","The classroom was noisy.","noisy＝うるさい。"],
+["enough","十分に","Are you old enough to drive?","enough to＋動詞で「～するのに十分」。"],
+["without","～なしで","I went out without my umbrella.","without＋名詞／動名詞。"],
+["instead","代わりに","Let's walk instead.","instead＝代わりに。"]
 ];
 
-const interviews=[
-"Do you like sports?","Do you often watch movies?","What do you like to do on weekends?","Do you like cooking?","What food do you like?","Do you study English every day?"
+const grammar=[
+["be動詞","She ___ a student.","is","Sheは三人称単数なのでis。amはI、areはyou/we/theyなど。","basic"],
+["一般動詞","I ___ tennis every Sunday.","play","Iの現在形はplay。一般動詞の前にamは置かない。","basic"],
+["do/does","___ he like music?","Does","heは三人称単数なので疑問文はDoes＋主語＋動詞原形。","do"],
+["did","___ you visit Kyoto last year?","Did","last yearがあるので過去。Didの後ろはvisitedではなくvisit。","past"],
+["三単現","Ken ___ English every day.","studies","Kenは三人称単数。study→studies。","third"],
+["否定","She ___ play soccer.","doesn't","she＋一般動詞の否定はdoesn't＋動詞原形。","do"],
+["過去形","I ___ breakfast at seven yesterday.","ate","yesterdayがあるので過去。eatの過去形はate。","past"],
+["can","I ___ swim very well.","can","canの後ろは動詞の原形。can swim。","modal"],
+["will","I ___ call you tomorrow.","will","tomorrowなど未来の予定・意思にはwill＋動詞原形。","future"],
+["to不定詞","I want ___ a new book.","to buy","want to＋動詞原形。","to"],
+["動名詞","I enjoy ___ music.","listening to","enjoyの後ろは名詞または動名詞。enjoy listening。","gerund"],
+["比較","This bag is ___ than that one.","cheaper","thanがある比較。cheap→cheaper。","comparison"],
+["there is","There ___ a park near my house.","is","a parkは単数なのでThere is。複数ならThere are。","there"],
+["前置詞","I get up ___ seven.","at","時刻にはat。日にはon、月・年にはin。","prep"],
+["疑問詞","___ did you go yesterday?","Where","goは「どこへ行った？」なのでWhere。","question"],
+["頻度","I ___ go to the library on Sundays.","usually","usuallyは一般動詞の前、be動詞の後が基本。","adverb"],
+["命令文","___ the window, please.","Open","命令文は動詞の原形から始める。","imperative"],
+["because","I stayed home ___ it was raining.","because","becauseの後ろは「主語＋動詞」の文。","conjunction"],
+["when","Call me ___ you get home.","when","「家に着いたとき」のwhen。","conjunction"],
+["受動の入口","English ___ in many countries.","is spoken","「英語が話される」なのでbe＋過去分詞。","passive"],
+["現在進行形","She ___ dinner now.","is cooking","nowがあるので「be＋動詞ing」。","progressive"],
+["過去進行形","I ___ TV at eight last night.","was watching","「昨夜8時に～していた」なのでwas＋ing。","progressive"],
+["have to","I ___ finish my homework today.","have to","have to＋動詞原形＝～しなければならない。","modal"],
+["should","You ___ drink more water.","should","should＋動詞原形＝～したほうがよい。","modal"],
+["Let's","___ go to the park.","Let's","Let's＋動詞原形＝一緒に～しよう。","expression"],
+["How often","___ do you play tennis?","How often","頻度をたずねる表現。","question"],
+["How long","___ does it take?","How long","時間の長さをたずねる。","question"],
+["one of","Ken is one of ___ friends.","my","one of＋複数名詞。「私の友達の一人」。","phrase"],
+["too...to","This box is too heavy ___ carry.","to","too＋形容詞＋to＋動詞＝～するには…すぎる。","to"],
+["because of","The game was canceled ___ the rain.","because of","because ofの後ろは名詞。rainは名詞。","prep"]
 ];
-const routes={
-basic:"🌱 基礎から：文法の土台→単語→短い読解→少しずつ3級問題へ。",
-exam:"🟡 3級対策：単語・文法・読解・リスニング・ライティング・面接をバランスよく。",
-last:"🔥 直前対策：本番形式・時間配分・弱点・英作文・面接を優先。"
-};
 
-let state;
-try{state=JSON.parse(localStorage.getItem("eiken3_state")||"{}")}catch(e){state={}}
-state.answered=Number(state.answered)||0;
-state.correct=Number(state.correct)||0;
-state.mistakes=Array.isArray(state.mistakes)?state.mistakes:[];
-state.route=state.route||"exam";
-state.time=Number(state.time)||5;
-state.diagDone=!!state.diagDone;
-state.history=Array.isArray(state.history)?state.history:[];
-state.skills=state.skills||{};
-let queue=[],qi=0,diagIndex=0,diagScore=0,listenIndex=0,intIndex=0;
-
-const diag=[
-["She ___ a student.",["is","are","am"],"is","grammar"],
-["I ___ soccer every Sunday.",["play","plays","playing"],"play","grammar"],
-["___ he like music?",["Do","Does","Is"],"Does","grammar"],
-["They ___ to school yesterday.",["go","went","goes"],"went","grammar"],
-["Please ___ me your pen.",["borrow","lend","arrive"],"lend","vocab"],
-["I stayed home ___ it was raining.",["because","but","or"],"because","vocab"],
-["What day does Ken play soccer? Ken plays soccer on Tuesday.",["Monday","Tuesday","Friday"],"Tuesday","reading"],
-["You hear: “Would you like some tea?” Best answer?",["Yes, please.","At five.","It is mine."],"Yes, please.","listening"],
-["QUESTION: Do you like English? Which is a good answer?",["Yes, I do. I like it because it is useful.","English yesterday.","At the station."],"Yes, I do. I like it because it is useful.","writing"],
-["面接で “Do you like sports?” と聞かれたら？",["Yes, I do. I like soccer.","Sports is yesterday.","At seven."],"Yes, I do. I like soccer.","interview"]
+const reading=[
+{title:"School Library",text:"The school library will be closed on Friday because the bookshelves are being cleaned. Students can return books on Monday. The library will open at 8:30 as usual.",qs:[
+["Why will the library be closed?","Because the bookshelves are being cleaned.","Because it is a holiday.","Because students have a test.","Because the teacher is absent."],
+["When can students return books?","On Monday.","On Friday.","On Sunday.","Next month."]
+]},
+{title:"Email from Mike",text:"Hi Yuki, I am going to the city museum with my brother this Saturday. We plan to meet at the station at 10:00. Would you like to join us? Please let me know by Thursday.",qs:[
+["Where will Mike go?","To the city museum.","To the library.","To the sports center.","To the airport."],
+["When will they meet?","At 10:00.","At 8:00.","At noon.","On Thursday."]
+]},
+{title:"Community Event",text:"The Green Park Festival will be held next Sunday. Visitors can enjoy music, games, and food from different countries. The festival starts at 11:00. Please bring your own water bottle.",qs:[
+["What can visitors enjoy?","Music, games, and food.","Only sports.","A school test.","A movie."],
+["What should visitors bring?","A water bottle.","A lunch box only.","A camera.","A tent."]
+]},
+{title:"Train Notice",text:"The 6:20 train to West Town will leave from platform 3 today. Because of construction work, it will stop at Hill Station for ten minutes. Passengers going to North Street should take the 6:40 train.",qs:[
+["Where will the 6:20 train leave from?","Platform 3.","Platform 1.","Platform 2.","Platform 5."],
+["Which train should North Street passengers take?","The 6:40 train.","The 6:20 train.","The 7:00 train.","The bus."]
+]},
+{title:"Healthy Lunch",text:"Emma used to buy a sandwich for lunch every day. Recently, she started bringing lunch from home. She says it is cheaper and she can choose more vegetables. She still buys a sandwich when she is very busy.",qs:[
+["Why does Emma bring lunch from home?","It is cheaper and has more vegetables.","She does not like sandwiches.","Her school has no store.","Her friends told her to."],
+["When does she buy a sandwich?","When she is very busy.","Every morning.","On weekends.","When she is sick."]
+]},
+{title:"Weekend Job",text:"Tom has a part-time job at a small bakery. He works on Saturday mornings. His job is to put bread on the shelves and help customers. He likes the job because he enjoys talking with people.",qs:[
+["When does Tom work?","Saturday mornings.","Sunday afternoons.","Every evening.","Friday mornings."],
+["Why does Tom like his job?","He enjoys talking with people.","He gets free books.","He likes cleaning.","He wants to be a baker."]
+]}
 ];
 
-function save(){localStorage.setItem("eiken3_state",JSON.stringify(state));updateHome()}
-function esc(s){return String(s).replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]))}
-function shuffle(a){return a.slice().sort(()=>Math.random()-.5)}
-function showPage(id){
- document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
- document.getElementById(id).classList.remove("hidden");
- document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("on"));
- const map={home:"navHome",study:"navStudy",writing:"navWriting",interview:"navInterview"};
- if(map[id])document.getElementById(map[id]).classList.add("on");
- window.scrollTo({top:0,behavior:"smooth"});
-}
-function goHome(){showPage("home");updateHome()}
-function setTime(n){
- state.time=n;save();
- document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",Number(x.dataset.time)===n));
-}
-document.querySelectorAll(".chip").forEach(x=>x.addEventListener("click",()=>setTime(Number(x.dataset.time))));
+const listening=[
+{part:"Part 1 応答",text:"A: Would you like some orange juice?\nB: ______",choices:["Yes, please.","It is Tuesday.","At the station."],ans:0,why:"「Would you like～?」は申し出。Yes, please.が自然。"},
+{part:"Part 1 応答",text:"A: Where is your brother?\nB: ______",choices:["He is in the kitchen.","He is thirteen.","He likes soccer."],ans:0,why:"Whereは場所を聞いているので「in the kitchen」。"},
+{part:"Part 1 応答",text:"A: How was your trip?\nB: ______",choices:["It was great.","At seven.","Yes, I do."],ans:0,why:"How was～?は感想・状態を聞く表現。"},
+{part:"Part 2 会話",text:"Girl: What did you do after school?\nBoy: I went to the library and studied for my science test.\nQuestion: What did the boy do after school?",choices:["He studied at the library.","He played tennis.","He went shopping.","He watched a movie."],ans:0,why:"libraryでscience testの勉強をした。"},
+{part:"Part 2 会話",text:"Man: Are you free on Sunday?\nWoman: I have to help my mother in the morning, but I am free in the afternoon.\nQuestion: When is the woman free?",choices:["Sunday morning.","Sunday afternoon.","Saturday afternoon.","Monday morning."],ans:1,why:"morningは予定あり、afternoonが空いている。"},
+{part:"Part 2 会話",text:"Boy: How will you go to the concert?\nGirl: My father will drive me there.\nQuestion: How will the girl go?",choices:["By bus.","By train.","By car.","On foot."],ans:2,why:"father will drive＝車で送ってもらう。"},
+{part:"Part 3 文章",text:"Ken wanted to buy a birthday gift for his sister. He went to a bookshop after school. He found a book about animals and bought it.\nQuestion: What did Ken buy?",choices:["A book about animals.","A new bag.","A soccer ball.","A cake."],ans:0,why:"最後にbought itとあるのはanimal book。"},
+{part:"Part 3 文章",text:"Lisa got up early because she had a soccer game. It started raining, so the game was moved to the next day. Lisa went home and watched a movie.\nQuestion: Why did Lisa go home?",choices:["The game was moved.","She was tired from school.","She lost her bag.","The movie was canceled."],ans:0,why:"雨で試合が翌日に延期されたため。"}
+];
 
-function updateHome(){
+const interview=[
+["Do you like music?","Yes, I do. I like pop music."],
+["Do you often read books?","Yes, I do. I usually read books before bed."],
+["What do you like to do on weekends?","I like to watch movies and go shopping."],
+["Do you like cooking?","Yes, I do. I sometimes cook dinner with my family."],
+["Which season do you like best?","I like summer best because I can go swimming."],
+["Do you use a smartphone every day?","Yes, I do. I use it to talk with my friends."],
+["What sport do you like?","I like tennis because it is fun."],
+["Do you like traveling?","Yes, I do. I want to visit many countries."],
+["What do you usually do after school or work?","I usually go home and have dinner with my family."],
+["Do you think reading is important?","Yes, I do. We can learn many things from books."],
+["Would you like to live in another country?","Yes, I would. I want to learn about another culture."],
+["Do you like eating at restaurants?","Yes, I do. I like trying different foods."],
+["What is your favorite day of the week?","Saturday is my favorite because I can relax."],
+["Do you often help your family?","Yes, I do. I help with cooking and cleaning."],
+["What do you want to do in the future?","I want to be a teacher because I like helping people."]
+];
+
+const writing=[
+{type:"Eメール",q:"Your friend Alex sent you an email. He asks: “What do you usually do on Sunday?” Write a reply and ask Alex one question.",guide:["①あいさつ","②日曜日にすることを2文程度","③Alexへの質問","④最後のあいさつ"],model:"Hi Alex,\nI usually go shopping with my family on Sunday. We sometimes eat lunch at a restaurant. What do you usually do on Sunday?\nSee you,\nKen"},
+{type:"英作文",q:"Do you think students should play sports at school? Write your opinion and give two reasons.",guide:["I think ... .","First, ... .","Second, ... .","理由は具体的にすると強い"],model:"I think students should play sports at school. First, sports are good for their health. Second, students can make friends by playing sports."},
+{type:"英作文",q:"Which do you like better, studying in the morning or studying at night? Give two reasons.",guide:["I like ... better.","First, ... .","Second, ... ."],model:"I like studying in the morning better. First, I can concentrate well. Second, I have more energy in the morning."},
+{type:"英作文",q:"Do you think it is good to have a pet? Give two reasons.",guide:["意見→理由1→理由2の3段構成でOK"],model:"I think it is good to have a pet. First, pets can make us happy. Second, we can learn how to take care of another living thing."}
+];
+
+let state=JSON.parse(localStorage.getItem("eiken3_state")||'{"answered":0,"correct":0,"wrong":[],"logs":[],"route":"grade3","time":5}');
+function save(){localStorage.setItem("eiken3_state",JSON.stringify(state));updateStats()}
+function updateStats(){
  document.getElementById("answered").textContent=state.answered;
- document.getElementById("accuracy").textContent=state.answered?Math.round(state.correct/state.answered*100)+"%":"--";
- document.getElementById("mistakeCount").textContent=state.mistakes.length;
- document.getElementById("overallBar").style.width=Math.min(100,state.answered/50*100)+"%";
- document.getElementById("routeText").textContent=routes[state.route];
- ["basic","exam","last"].forEach((x,i)=>document.getElementById("r"+(i+1)).classList.toggle("sel",state.route===x));
- document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",Number(x.dataset.time)===state.time));
- document.getElementById("recommend").innerHTML=recommendation();
+ document.getElementById("accuracy").textContent=state.answered?Math.round(state.correct/state.answered*100)+"%":"0%";
+ document.getElementById("weak").textContent=new Set(state.wrong).size;
+ document.getElementById("recommend").textContent=state.answered<5?"まずは実力チェック10問。苦手を見つけて必要なところから始めます。":new Set(state.wrong).size?"弱点が見つかっています。今日は「弱点を復習」からがおすすめ。":"順調！今日は苦手分野を1つ選んで、5〜10問続けてみよう。";
 }
-function recommendation(){
- if(!state.diagDone)return "<b>まずは実力チェック10問。</b><br><span class='muted'>今の弱点を見つけて、必要なところから始めます。</span>";
- if(state.mistakes.length>=3)return "<b>🔁 今日は弱点復習がおすすめ。</b><br><span class='muted'>間違えた問題をもう一度やって、定着させよう。</span>";
- if(state.route==="basic")return "<b>🌱 基礎文法を5問。</b><br><span class='muted'>正解だけでなく「なぜ？」まで理解しよう。</span>";
- if(state.route==="last")return "<b>🔥 本番モードを5〜10問。</b><br><span class='muted'>英作文と面接にも毎日少し触れよう。</span>";
- return "<b>🟡 3級問題を5問。</b><br><span class='muted'>単語→文法→読解→リスニングを回そう。</span>";
+function show(id){
+ document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+ const t=document.getElementById("tab-"+id); if(t)t.classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(id==="practice")renderPractice();
+ if(id==="vocab")renderVocab();
+ if(id==="grammar")renderGrammar();
+ if(id==="reading")renderReading();
+ if(id==="listening")renderListening();
+ if(id==="writing")renderWriting();
+ if(id==="interview")renderInterview();
+ if(id==="log")showLog();
 }
-
-function startRecommended(){
- if(!state.diagDone){openDiagnosis();return}
- if(state.mistakes.length>=3){showMistakes();return}
- startQuiz(state.route==="basic"?"grammar":"all");
+function setTime(n){state.time=n;save();document.getElementById("timeMsg").textContent=n===99?"今日は時間を決めず、いけるところまで🔥":"今日は"+n+"分を目安に。終わりたくなければ、そのまま続けてOK。"}
+function setRoute(r){state.route=r;save();const m={basic:"🌱 基礎から：be動詞・一般動詞・do/does/didを優先。",grade3:"🟡 3級対策：単語・文法・読解・リスニング・ライティング・面接をバランスよく。",last:"🔥 直前対策：本番形式・時間感覚・ライティング・面接を重点的に。"};document.getElementById("routeMsg").textContent=m[r]}
+function record(correct,tag){
+ state.answered++;if(correct)state.correct++;else state.wrong.push(tag);
+ state.logs.unshift(new Date().toLocaleString("ja-JP")+" / "+tag+" / "+(correct?"○":"×"));state.logs=state.logs.slice(0,80);save();
 }
-function startQuiz(type){
- queue=shuffle(type==="all"?DATA.all:(DATA[type]||DATA.all));
- qi=0;showPage("study");renderQuestion();
+function optionHTML(item,idx,tag,onDone){
+ return `<div class="choices">${item.choices.map((c,i)=>`<button class="choice" onclick="${onDone}(${i},${idx},'${tag}')">${String.fromCharCode(65+i)}. ${c}</button>`).join("")}</div>`;
 }
-function renderQuestion(){
- if(!queue.length)return;
- const item=queue[qi%queue.length];
- document.getElementById("studyTag").textContent=item[4];
- document.getElementById("qCount").textContent=(qi+1)+"問目";
- const meter=document.getElementById("meter");meter.innerHTML="";
- const total=Math.min(queue.length,10);
- for(let i=0;i<total;i++){const z=document.createElement("i");if(i<Math.min(qi,total))z.className="on";meter.appendChild(z)}
- const choices=shuffle([item[1],...item[2]]);
- document.getElementById("questionArea").innerHTML=
-   '<div class="q">'+esc(item[0])+'</div>'+
-   choices.map((c,i)=>'<button class="choice" onclick="answer(this,'+i+')">'+esc(c)+'</button>').join("")+
-   '<div id="feedback"></div>';
- window.currentChoices=choices;
- document.getElementById("nextBtn").classList.add("hidden");
+let practiceIndex=0;
+const practice=[
+...grammar.slice(0,12).map((g,i)=>({cat:"文法",q:g[1],choices:[g[2],...["are","do","did","play","was"].filter(x=>x!==g[2])].slice(0,4),ans:0,why:g[3],tag:"文法:"+g[0]})),
+...vocab.slice(0,14).map((v,i)=>({cat:"語彙",q:`次の文の空所に入る最も適切な語は？\n${v[2].replace(v[0],"_____")}`,choices:[v[0],"borrowed","important","usually"].slice(0,4),ans:0,why:v[3],tag:"単語:"+v[0]}))
+];
+function renderPractice(){
+ const p=practice[practiceIndex%practice.length];
+ document.getElementById("practiceArea").innerHTML=`<span class="tag">${p.cat}</span><h3>${p.q.replace(/\n/g,"<br>")}</h3>${optionHTML(p,practiceIndex,p.tag,"answerPractice")}<div id="practiceResult"></div><button class="btn" onclick="practiceIndex++;renderPractice()">次の問題 →</button>`;
 }
-function answer(btn,index){
- const item=queue[qi%queue.length];
- const buttons=[...document.querySelectorAll("#questionArea .choice")];
- const choices=window.currentChoices||[];
- const c=choices[index];
- buttons.forEach(b=>b.disabled=true);
- state.answered++;
- state.skills[item[4]]=(state.skills[item[4]]||0)+ (c===item[1]?1:-1);
- const fb=document.getElementById("feedback");
- if(c===item[1]){
-   state.correct++;
-   btn.classList.add("correct");
-   state.mistakes=state.mistakes.filter(m=>m.q!==item[0]);
-   fb.innerHTML='<div class="feedback good"><b>⭕ 正解！</b><div class="explain">'+esc(item[3])+'</div></div>';
- }else{
-   btn.classList.add("wrong");
-   const correct=buttons.find((b,i)=>choices[i]===item[1]);if(correct)correct.classList.add("correct");
-   state.mistakes=state.mistakes.filter(m=>m.q!==item[0]);
-   state.mistakes.push({q:item[0],a:item[1],e:item[3],tag:item[4]});
-   state.mistakes=state.mistakes.slice(-30);
-   fb.innerHTML='<div class="feedback bad"><b>❌ ここがポイント</b><div class="explain">正解：<b>'+esc(item[1])+'</b><br>'+esc(item[3])+'</div></div>';
- }
- state.history.unshift({date:new Date().toLocaleDateString("ja-JP"),correct:c===item[1],tag:item[4]});
- state.history=state.history.slice(0,100);
- save();
- document.getElementById("nextBtn").classList.remove("hidden");
+function answerPractice(choice,idx,tag){
+ const p=practice[idx%practice.length]; const ok=choice===p.ans;document.querySelectorAll("#practiceArea .choice").forEach((b,i)=>{if(i===p.ans)b.classList.add("correct");if(i===choice&&!ok)b.classList.add("wrong")});
+ document.getElementById("practiceResult").innerHTML=`<div class="explain"><b>${ok?"⭕ 正解！":"❌ ここがポイント"}</b><br>${p.why}</div>`;
+ record(ok,tag);
 }
-function nextQuestion(){qi++;renderQuestion()}
-
-function startListening(){
- showPage("listening");renderListening();
+let vocabIndex=0;
+function renderVocab(){
+ const v=vocab[vocabIndex%vocab.length];
+ document.getElementById("vocabArea").innerHTML=`<span class="tag">今日の1語</span><div class="word">${v[0]}</div><div class="jp">${v[1]}</div><p>${v[2]}</p><button class="btn primary" onclick="speak('${v[0]}')">🔊 発音を聞く</button><button class="btn" onclick="showVocabMeaning()">意味・ポイントを見る</button><div id="vocabMeaning"></div><div class="divider"></div><button class="btn blue" onclick="vocabIndex++;renderVocab()">次の単語 →</button>`;
 }
+function showVocabMeaning(){const v=vocab[vocabIndex%vocab.length];document.getElementById("vocabMeaning").innerHTML=`<div class="explain"><b>覚え方</b><br>${v[3]}</div>`}
+let grammarIndex=0;
+function renderGrammar(){
+ const g=grammar[grammarIndex%grammar.length];
+ document.getElementById("grammarArea").innerHTML=`<span class="tag">${g[0]}</span><h3>${g[1]}</h3>${optionHTML({choices:[g[2],"are","do","did"].filter((x,i,a)=>a.indexOf(x)===i).slice(0,4)},grammarIndex,g[0],"answerGrammar")}<div id="grammarResult"></div><button class="btn" onclick="grammarIndex++;renderGrammar()">次の文法 →</button>`;
+}
+function answerGrammar(choice,idx,tag){const g=grammar[idx%grammar.length];const opts=[g[2],"are","do","did"].filter((x,i,a)=>a.indexOf(x)===i).slice(0,4);const ok=opts[choice]===g[2];document.querySelectorAll("#grammarArea .choice").forEach((b,i)=>{if(i===opts.indexOf(g[2]))b.classList.add("correct");if(i===choice&&!ok)b.classList.add("wrong")});document.getElementById("grammarResult").innerHTML=`<div class="explain"><b>${ok?"⭕ 正解！":"❌ ここを覚えよう"}</b><br>${g[3]}</div>`;record(ok,"文法:"+tag)}
+let readingIndex=0,readingQ=0;
+function renderReading(){
+ const r=reading[readingIndex%reading.length],q=r.qs[readingQ%r.qs.length];
+ document.getElementById("readingArea").innerHTML=`<span class="tag">長文</span><h3>${r.title}</h3><p>${r.text}</p><div class="divider"></div><b>${q[0]}</b><div class="choices">${q.slice(1).map((c,i)=>`<button class="choice" onclick="answerReading(${i},${readingIndex},${readingQ})">${String.fromCharCode(65+i)}. ${c}</button>`).join("")}</div><div id="readingResult"></div><button class="btn" onclick="readingQ++;if(readingQ%r.qs.length===0)readingIndex++;renderReading()">次の読解 →</button>`;
+}
+function answerReading(c,ri,qi){const r=reading[ri%reading.length],q=r.qs[qi%r.qs.length];const ok=c===0;document.querySelectorAll("#readingArea .choice").forEach((b,i)=>{if(i===0)b.classList.add("correct");if(i===c&&!ok)b.classList.add("wrong")});document.getElementById("readingResult").innerHTML=`<div class="explain"><b>${ok?"⭕ 正解！":"❌ 本文に戻ろう"}</b><br>答え：${q[1]}<br>本文の「誰が・何を・いつ・なぜ」を探すと解きやすいよ。</div>`;record(ok,"読解:"+r.title)}
+let listenIndex=0;
 function renderListening(){
- const x=LISTEN[listenIndex%LISTEN.length];
- document.getElementById("listenTag").textContent=x[0];
- document.getElementById("listenText").textContent=x[1];
- document.getElementById("listenQuestionArea").innerHTML=
-  '<div class="prompt"><b>聞いたら、答えを選ぼう。</b>'+
-  x[2].map((c,i)=>'<button class="choice" onclick="checkListen(this,'+i+')">'+esc(c)+'</button>').join("")+
-  '<div id="listenFeedback"></div></div>';
+ const l=listening[listenIndex%listening.length];
+ document.getElementById("listeningArea").innerHTML=`<span class="tag">${l.part}</span><p id="listenText">${l.text.replace(/\n/g,"<br>")}</p><div class="audio"><button class="btn primary" onclick="speak(\`${l.text.replace(/`/g,"")}\`)">🔊 再生</button><button class="btn" onclick="speakSlow(\`${l.text.replace(/`/g,"")}\`)">🐢 ゆっくり</button></div><div class="choices">${l.choices.map((c,i)=>`<button class="choice" onclick="answerListening(${i},${listenIndex})">${String.fromCharCode(65+i)}. ${c}</button>`).join("")}</div><div id="listenResult"></div><button class="btn" onclick="listenIndex++;renderListening()">次の問題 →</button>`;
 }
-function speakListening(rate){
- if(!("speechSynthesis" in window)){alert("この端末では音声再生に対応していません。");return}
- speechSynthesis.cancel();
- const u=new SpeechSynthesisUtterance(document.getElementById("listenText").innerText);
- u.lang="en-US";u.rate=rate;u.pitch=1;
- const voices=speechSynthesis.getVoices();
- const v=voices.find(x=>/^en-US$/i.test(x.lang))||voices.find(x=>/^en/i.test(x.lang));
- if(v)u.voice=v;
- speechSynthesis.speak(u);
+function answerListening(c,idx){const l=listening[idx%listening.length],ok=c===l.ans;document.querySelectorAll("#listeningArea .choice").forEach((b,i)=>{if(i===l.ans)b.classList.add("correct");if(i===c&&!ok)b.classList.add("wrong")});document.getElementById("listenResult").innerHTML=`<div class="explain"><b>${ok?"⭕ 正解！":"❌ ここを確認"}</b><br>${l.why}</div>`;record(ok,"リスニング:"+l.part)}
+let writeIndex=0;
+function renderWriting(){
+ const w=writing[writeIndex%writing.length];
+ document.getElementById("writingArea").innerHTML=`<span class="tag">${w.type}</span><h3>${w.q}</h3><h3>🪜 書き方ガイド</h3><ul>${w.guide.map(x=>`<li>${x}</li>`).join("")}</ul><textarea id="writingText" class="textarea" placeholder="ここに英語を書いてみよう"></textarea><div class="grid" style="margin-top:9px"><button class="btn primary" onclick="checkWriting()">セルフチェック</button><button class="btn" onclick="document.getElementById('model').classList.toggle('hide')">模範例を見る</button></div><div id="writingFeedback"></div><div id="model" class="explain hide"><b>例</b><pre style="white-space:pre-wrap;font-family:inherit">${w.model}</pre></div><button class="btn blue" onclick="writeIndex++;renderWriting()">次の課題 →</button>`;
 }
-function checkListen(btn,i){
- const x=LISTEN[listenIndex%LISTEN.length],buttons=[...document.querySelectorAll("#listenQuestionArea .choice")];
- buttons.forEach(b=>b.disabled=true);
- if(i===0){btn.classList.add("correct");document.getElementById("listenFeedback").innerHTML='<div class="feedback good"><b>⭕ 正解！</b><br>'+esc(x[3])+'</div>'}
- else{btn.classList.add("wrong");buttons[0].classList.add("correct");document.getElementById("listenFeedback").innerHTML='<div class="feedback bad"><b>❌ もう一度聞いてみよう。</b><br>正解：<b>'+esc(x[2][0])+'</b><br>'+esc(x[3])+'</div>'}
+function checkWriting(){const s=document.getElementById("writingText").value.trim();const words=s?s.split(/\s+/).length:0;let tips=[];if(!s)tips.push("まず1文だけでも書いてみよう。");else{if(words<8)tips.push("もう少し具体的に書いてみよう。");if(writeIndex%writing.length>0&&!/First|Second|first|second/i.test(s))tips.push("英作文ならFirst, Secondなどで理由を整理すると書きやすい。");if(!/[.!?]$/.test(s))tips.push("最後にピリオドなどを忘れずに。")}document.getElementById("writingFeedback").innerHTML=`<div class="explain"><b>セルフチェック</b><br>${tips.length?tips.join("<br>"):"いい感じ！内容・構成・語彙・文法を見直してから提出しよう。"}</div>`}
+let interviewIndex=0;
+function renderInterview(){
+ const x=interview[interviewIndex%interview.length];
+ document.getElementById("interviewArea").innerHTML=`<span class="tag">Q${interviewIndex%5+1} 練習</span><h3>${x[0]}</h3><div class="audio"><button class="btn primary" onclick="speak('${x[0]}')">🔊 質問を聞く</button><button class="btn" onclick="speakSlow('${x[0]}')">🐢 ゆっくり</button></div><textarea id="interviewText" class="textarea" placeholder="英語で答えてみよう"></textarea><div class="grid" style="margin-top:9px"><button class="btn good" onclick="checkInterview()">答えをチェック</button><button class="btn" onclick="speak('${x[1]}')">模範回答を聞く</button></div><div id="interviewFeedback"></div><div class="notice small">面接では、完璧な長文より「質問に答える＋一言理由や説明」を意識。聞き取れないときは自然に聞き返す練習も。</div><button class="btn blue" onclick="interviewIndex++;renderInterview()">次の質問 →</button>`;
 }
-function nextListening(){listenIndex=(listenIndex+1)%LISTEN.length;renderListening();window.scrollTo({top:0,behavior:"smooth"})}
-
-function openWriting(){showPage("writing")}
-function insertEssayTemplate(){document.getElementById("essayAnswer").value="I think so because it is useful. Also, I can talk with people from other countries."}
-function checkEmail(){
- const s=document.getElementById("emailAnswer").value.trim(),c=[];
- if(!s)c.push('<span class="ng">まず1文書いてみよう。</span>');
- else{
-  c.push(/[.!?]/.test(s)?'<span class="ok">⭕ 文末の記号OK</span>':'<span class="warn">⚠️ 文末に . をつけよう</span>');
-  c.push(s.split(/\s+/).length>=8?'<span class="ok">⭕ ある程度の文量があります</span>':'<span class="warn">💡 もう1文足してみよう</span>');
-  c.push(/I\s+(like|love|enjoy|usually|want|can)/i.test(s)?'<span class="ok">⭕ 自分のことを具体的に書けています</span>':'<span class="warn">💡 I like... / I usually... などで具体的に</span>');
- }
- document.getElementById("emailFeedback").innerHTML='<div class="feedback">'+c.map(x=>'<div class="check">'+x+'</div>').join("")+'<div class="mini">Eメールは「相手の質問に答える」ことを最優先。</div></div>';
-}
-function checkEssay(){
- const s=document.getElementById("essayAnswer").value.trim(),c=[];
- if(!s)c.push('<span class="ng">まず「I think...」などで自分の考えを書こう。</span>');
- else{
-  c.push(/I\s+(think|like|love|do not|don't)/i.test(s)?'<span class="ok">⭕ 自分の考えが入っています</span>':'<span class="warn">💡 最初に意見をはっきり書こう</span>');
-  c.push(/because|also|first|second|reason/i.test(s)?'<span class="ok">⭕ 理由を示す表現があります</span>':'<span class="warn">💡 because / Also などを使おう</span>');
-  c.push(s.split(/\s+/).length>=20?'<span class="ok">⭕ しっかり書けています</span>':'<span class="warn">💡 理由を2つにして、もう少し文を増やそう</span>');
- }
- document.getElementById("essayFeedback").innerHTML='<div class="feedback">'+c.map(x=>'<div class="check">'+x+'</div>').join("")+'</div>';
-}
-
-function openInterview(){showPage("interview");document.getElementById("interviewQ").textContent=interviews[intIndex]}
-function newInterview(){intIndex=(intIndex+1)%interviews.length;document.getElementById("interviewQ").textContent=interviews[intIndex];document.getElementById("interviewAnswer").value="";document.getElementById("interviewFeedback").innerHTML=""}
-function speak(text){
- if(!("speechSynthesis" in window)){alert("この端末では音声再生に対応していません。");return}
- speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=.85;u.pitch=1;speechSynthesis.speak(u);
-}
-function checkInterview(){
- const s=document.getElementById("interviewAnswer").value.trim();
- document.getElementById("interviewFeedback").innerHTML='<div class="feedback">'+
- (s?'<span class="ok">⭕ まず答えられたのが大事！</span>':'<span class="warn">💡 Yes, I do. / No, I don’t. から始めよう。</span>')+
- '<br><b>＋ひとこと</b> I like soccer. / Because it is fun. のように続けてみよう。</div>';
-}
-
-function showMistakes(){
- showPage("mistakes");const a=document.getElementById("mistakeArea");
- if(!state.mistakes.length){a.innerHTML='<div class="empty">🎉 今は弱点登録がありません。<br>問題を解いて、間違えたらここに貯まります。</div>';return}
- a.innerHTML=state.mistakes.slice().reverse().map(m=>'<div class="card"><span class="tag">'+esc(m.tag)+'</span><p><b>'+esc(m.q)+'</b></p><p>正解：<b>'+esc(m.a)+'</b></p><div class="muted">'+esc(m.e)+'</div></div>').join("");
-}
-function showHistory(){
- showPage("history");const a=document.getElementById("historyArea");
- const h=state.history;
- if(!h.length){a.innerHTML='<div class="empty">まだ記録がありません。まず1問やってみよう😊</div>';return}
- const total=h.length,good=h.filter(x=>x.correct).length;
- const by={};h.forEach(x=>{by[x.tag]=(by[x.tag]||0)+1});
- a.innerHTML='<div class="result"><b>これまでの記録</b><div class="statgrid" style="margin-top:10px"><div class="stat"><b>'+total+'</b>解答</div><div class="stat"><b>'+Math.round(good/total*100)+'%</b>正答率</div><div class="stat"><b>'+state.mistakes.length+'</b>弱点</div></div></div>'+
- '<div class="card"><b>分野別</b><div style="margin-top:8px">'+Object.keys(by).map(k=>'<span class="pill">'+esc(k)+'：'+by[k]+'問</span>').join("")+'</div></div>';
-}
-
-function openDiagnosis(){diagIndex=0;diagScore=0;document.getElementById("diagnosisModal").classList.remove("hidden");renderDiag()}
-function closeDiagnosis(){document.getElementById("diagnosisModal").classList.add("hidden")}
-function renderDiag(){
- const d=diag[diagIndex];
- document.getElementById("diagArea").innerHTML='<div class="mini">'+(diagIndex+1)+' / '+diag.length+'</div><div class="diagq">'+esc(d[0])+'</div>'+
- d[1].map((x,i)=>'<label class="option"><input type="radio" name="diag" value="'+i+'">'+esc(x)+'</label>').join("")+
- '<div id="diagNote"></div>';
- document.getElementById("diagNext").textContent=diagIndex===diag.length-1?"結果を見る":"次へ";
-}
-function diagNext(){
- const p=document.querySelector('input[name="diag"]:checked');
- if(!p){document.getElementById("diagNote").innerHTML='<div class="dangerbox" style="background:var(--badbg);padding:10px;border-radius:12px">1つ選んでね。</div>';return}
- if(Number(p.value)===0)diagScore++;
- if(diagIndex<diag.length-1){diagIndex++;renderDiag()}
- else{
-  state.diagDone=true;
-  state.route=diagScore<=4?"basic":diagScore<=7?"exam":"last";
-  save();closeDiagnosis();
-  const label=state.route==="basic"?"🌱 基礎から":state.route==="exam"?"🟡 3級対策":"🔥 直前対策";
-  setTimeout(()=>alert("チェック完了！\\n\\nあなたに合うルート："+label+"\\n\\nまずは「今日のおすすめ」から始めよう。"),50);
- }
-}
-
-function boot(){
- const target=new Date("2026-10-04T00:00:00+09:00"),now=new Date();
- const days=Math.max(0,Math.ceil((target-now)/86400000));
- document.getElementById("days").textContent=days;
- document.getElementById("headline").textContent=days<=7?"🔥 ラスト1週間。弱点・英作文・面接を優先！":days<=21?"🟡 本番が近づいてきた。毎日少しずつ続けよう。":"今日1問でもやればOK。時間がある日は、そのまま続けよう！";
- updateHome();
- document.getElementById("interviewQ").textContent=interviews[0];
-}
-boot();
+function checkInterview(){const s=document.getElementById("interviewText").value.trim();document.getElementById("interviewFeedback").innerHTML=`<div class="explain"><b>${s?"👍 答えられた！":"まず短くてもいいので答えてみよう。"}</b><br>模範例：${interview[interviewIndex%interview.length][1]}<br><br><b>ポイント：</b> Yes/Noだけで終わらず、理由や具体例を1つ足せると強い。</div>`}
+let diagIndex=0,diagScore=0;
+const diagnosis=[
+["be動詞","She ___ my friend.",["is","are","am"],0],
+["一般動詞","I ___ soccer.",["play","plays","playing"],0],
+["do/does","___ he like cats?",["Does","Do","Did"],0],
+["過去","We ___ Kyoto last year.",["visited","visit","visiting"],0],
+["単語","I usually ___ up at seven.",["get","gets","got"],0],
+["読解","Ken has a test on Friday. He studies on Thursday. When does he study?",["Thursday","Friday","Saturday"],0],
+["リスニング","A: Thank you. B: ___",["You're welcome.","I'm thirteen.","At seven."],0],
+["ライティング","「私は犬が好きです。2つ理由を書きたい」最初の一文として最適なのは？",["I like dogs.","Dogs is like.","I liking dog."],0],
+["面接","Q: Do you like sports? 最初の答えとして自然なのは？",["Yes, I do.","Yes, I am.","Yes, I can."],0],
+["文法","I want ___ English.",["to study","study","studying"],0]
+];
+function startDiagnosis(){diagIndex=0;diagScore=0;show("diagnosis");renderDiagnosis()}
+function renderDiagnosis(){if(diagIndex>=diagnosis.length){const rate=diagScore*10;state.route=rate<50?"basic":rate<80?"grade3":"last";save();document.getElementById("diagArea").innerHTML=`<div class="stat"><b>${rate}%</b>基礎チェック正答率</div><div class="explain"><b>おすすめルート</b><br>${rate<50?"🌱 基礎から：まずbe動詞・一般動詞・do/does/did・過去形を固めよう。":rate<80?"🟡 3級対策：基礎を確認しながら3級問題を増やそう。":"🔥 直前対策：本番形式・ライティング・面接を重点的に。"}<br><br>正答できなかった分野は「弱点を復習」に残せます。</div><button class="btn primary" onclick="show('practice')">問題を始める →</button>`;return}const d=diagnosis[diagIndex];document.getElementById("diagArea").innerHTML=`<div class="topline"><span class="tag">${diagIndex+1}/10・${d[0]}</span><span class="small">${diagScore}問正解</span></div><h3>${d[1]}</h3><div class="choices">${d[2].map((x,i)=>`<button class="choice" onclick="answerDiag(${i})">${String.fromCharCode(65+i)}. ${x}</button>`).join("")}</div>`}
+function answerDiag(c){const d=diagnosis[diagIndex],ok=c===d[3];if(ok)diagScore++;else state.wrong.push("実力チェック:"+d[0]);state.answered++;if(ok)state.correct++;state.logs.unshift(new Date().toLocaleString("ja-JP")+" / 実力チェック:"+d[0]+" / "+(ok?"○":"×"));state.logs=state.logs.slice(0,80);save();diagIndex++;renderDiagnosis()}
+function startMock(){let i=0,score=0;show("mock");function render(){if(i>=10){document.getElementById("mockArea").innerHTML=`<div class="stat"><b>${score}/10</b>ミニ模試</div><div class="explain">本番はReading/​Writing 65分、Listening約25分。今回は短縮版で、形式に慣れることを目的にしています。</div><button class="btn primary" onclick="show('home')">ホームへ</button>`;return}const p=practice[(i*3)%practice.length];document.getElementById("mockArea").innerHTML=`<span class="tag">${i+1}/10・${p.cat}</span><h3>${p.q}</h3><div class="choices">${p.choices.map((c,j)=>`<button class="choice" onclick="(function(){const ok=${j}===${p.ans};if(ok)score++;record(ok,'模試:${p.cat}');i++;render()})()">${String.fromCharCode(65+j)}. ${c}</button>`).join("")}</div>`}render()}
+function reviewWeak(){if(!state.wrong.length){alert("まだ弱点データがありません。まず問題を解いてみよう！");return}show("practice");practiceIndex=practice.findIndex(p=>state.wrong.some(w=>w.includes(p.cat)));if(practiceIndex<0)practiceIndex=0;renderPractice()}
+function showLog(){show("log");document.getElementById("logArea").innerHTML=state.logs.length?state.logs.map(x=>`<div class="pill">${x}</div>`).join(""):"まだ記録がありません。問題を1問解くところから始めよう。"}
+function speak(text){if(!("speechSynthesis"in window)){alert("この端末では読み上げが利用できません。");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=.9;speechSynthesis.speak(u)}
+function speakSlow(text){if(!("speechSynthesis"in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=.62;speechSynthesis.speak(u)}
+function updateDays(){const target=new Date("2026-10-04T00:00:00+09:00"),now=new Date();const d=Math.max(0,Math.ceil((target-now)/86400000));document.getElementById("days").textContent=d;document.getElementById("goalBar").style.width=Math.max(0,Math.min(100,(1-d/100)*100))+"%"}
+updateDays();updateStats();renderPractice();renderVocab();renderGrammar();renderReading();renderListening();renderWriting();renderInterview();
 </script>
 </body>
 </html>
